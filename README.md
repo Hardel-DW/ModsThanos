@@ -68,7 +68,7 @@ Quand Thanos à récupérer les 6 pierres, le claquement de doigt est automatiqu
 ![HUD](https://i.imgur.com/ivxlot9.png)
 --------
 
-## Options de perssonalisation
+## Options de personnalisation
 <table>
   <tr>
     <th>Cooldown Time Stone</th>
