@@ -5,33 +5,31 @@ using UnityEngine;
 
 namespace ModsThanos.Stone.System {
     class Snap {
-        public static KGIKNCBGPFJ camera = Camera.main.GetComponent<KGIKNCBGPFJ>();
-
         public static void OnSnapPressed() {
             MessageWriter write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.Snap, SendOption.None, -1);
             write.Write(PlayerControl.LocalPlayer.PlayerId);
             AmongUsClient.Instance.FinishRpcImmediately(write);
 
             GlobalVariable.useSnap = true;
-            camera.shakeAmount = 0.2f;
-            camera.shakePeriod = 1200f;
+            Camera.main.GetComponent<KGIKNCBGPFJ>().shakeAmount = 0.3f;
+            Camera.main.GetComponent<KGIKNCBGPFJ>().shakePeriod = 600f;
             HudManager.Instance.FullScreen.enabled = true;
             HudManager.Instance.FullScreen.color = new Color(1f, 1f, 1f, 0f);
         }
 
         public static void Incremente() {
-            camera.shakeAmount += 0.001f;
-            camera.shakePeriod -= 1;
+            Camera.main.GetComponent<KGIKNCBGPFJ>().shakeAmount = 0.3f;
+            Camera.main.GetComponent<KGIKNCBGPFJ>().shakePeriod = 600f;
 
             Color currentColor = HudManager.Instance.FullScreen.color;
             HudManager.Instance.FullScreen.enabled = true;
-            HudManager.Instance.FullScreen.color = new Color(currentColor.r, currentColor.g, currentColor.b, currentColor.a + 0.002f);
+            HudManager.Instance.FullScreen.color = new Color(1f, 1f, 1f, currentColor.a + 0.002f);
         }
 
         public static void OnSnapEnded() {
             GlobalVariable.useSnap = false;
-            camera.shakeAmount = 0f;
-            camera.shakePeriod = 0f;
+            Camera.main.GetComponent<KGIKNCBGPFJ>().shakeAmount = 0f;
+            Camera.main.GetComponent<KGIKNCBGPFJ>().shakePeriod = 0f;
 
             HudManager.Instance.FullScreen.color = new Color(1f, 1f, 1f, 0f);
             HudManager.Instance.FullScreen.enabled = false;
@@ -49,8 +47,8 @@ namespace ModsThanos.Stone.System {
         public static bool Prefix([HarmonyArgument(0)] byte callId, [HarmonyArgument(1)] MessageReader reader) {
             if (callId == (byte) CustomRPC.Snap) {
                 GlobalVariable.useSnap = true;
-                Snap.camera.shakeAmount = 0.2f;
-                Snap.camera.shakePeriod = 1200f;
+                Camera.main.GetComponent<KGIKNCBGPFJ>().shakeAmount = 0.2f;
+                Camera.main.GetComponent<KGIKNCBGPFJ>().shakePeriod = 1200f;
                 HudManager.Instance.FullScreen.enabled = true;
                 HudManager.Instance.FullScreen.color = new Color(1f, 1f, 1f, 0f);
 
@@ -59,8 +57,8 @@ namespace ModsThanos.Stone.System {
 
             if (callId == (byte) CustomRPC.SnapEnded) {
                 GlobalVariable.useSnap = false;
-                Snap.camera.shakeAmount = 0f;
-                Snap.camera.shakePeriod = 0f;
+                Camera.main.GetComponent<KGIKNCBGPFJ>().shakeAmount = 0f;
+                Camera.main.GetComponent<KGIKNCBGPFJ>().shakePeriod = 0f;
                 HudManager.Instance.FullScreen.enabled = false;
                 HudManager.Instance.FullScreen.color = new Color(1f, 1f, 1f, 0f);
 

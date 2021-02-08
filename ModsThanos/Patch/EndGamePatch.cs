@@ -32,7 +32,8 @@ namespace ModsThanos.Patch {
             GlobalVariable.hasSpaceStone = false;
             GlobalVariable.hasTimeStone = false;
             GlobalVariable.useSnap = false;
-            GlobalVariable.soulStoneUsed = false;
+            GlobalVariable.mindStoneUsed = false;
+            GlobalVariable.realityStoneUsed = false;
             GlobalVariable.UsableButton = false;
 
             GlobalVariable.stoneObjects.Clear();

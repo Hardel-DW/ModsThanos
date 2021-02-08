@@ -28,6 +28,7 @@ namespace ModsThanos.Stone.System {
                 Player player = Player.FromPlayerId(playerId);
                 HelperSprite.ShowAnimation(1, 8, true, "ModsThanos.Resources.anim-reality.png", 48, 1, player.GameObject.transform.position, 1);
 
+                GlobalVariable.realityStoneUsed = isInvis;
                 RpcFunctions.TurnInvis(isInvis, __instance);
                 return false;
             }
@@ -49,21 +50,20 @@ namespace ModsThanos.Stone.System {
                     if (player.CurrentPet != null) player.CurrentPet.rend.SetColorAlpha(0.2f);       
                     
                 } else {
-                    GlobalVariable.PlayerNameInvisiblity = player.nameText.Text;
                     playerRenderer.SetColorAlpha(0f);
                     player.HatRenderer.FrontLayer.SetColorAlpha(0f);
                     player.HatRenderer.BackLayer.SetColorAlpha(0f);
                     player.MyPhysics.Skin.layer.SetColorAlpha(0f);
-                    player.nameText.Text = "";
+                    player.nameText.Color = new Color(player.nameText.Color.r, player.nameText.Color.g, player.nameText.Color.b, 0f);
                     if (player.CurrentPet != null) player.CurrentPet.rend.SetColorAlpha(0f);
                 }
             } else {
                 Reality.invisPlayers.Remove(player.PlayerId);
+                player.nameText.Color = new Color(player.nameText.Color.r, player.nameText.Color.g, player.nameText.Color.b, 1f);
                 playerRenderer.SetColorAlpha(1f);
                 player.HatRenderer.FrontLayer.SetColorAlpha(1f);
                 player.HatRenderer.BackLayer.SetColorAlpha(1f);
                 player.MyPhysics.Skin.layer.SetColorAlpha(1f);
-                player.nameText.Text = GlobalVariable.PlayerNameInvisiblity;
                 if (player.CurrentPet != null) player.CurrentPet.rend.SetColorAlpha(1f);                
             }
         }
@@ -92,5 +92,4 @@ namespace ModsThanos.Stone.System {
             Reality.invisPlayers.Clear();
         }
     }
-
 }

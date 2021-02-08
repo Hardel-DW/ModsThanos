@@ -15,11 +15,13 @@ namespace ModsThanos.Patch {
             GlobalVariable.hasRealityStone = false;
             GlobalVariable.hasSoulStone = false;
             GlobalVariable.hasSpaceStone = false;
+            GlobalVariable.realityStoneUsed = false;
             GlobalVariable.hasTimeStone = false;
             GlobalVariable.useSnap = false;
-            GlobalVariable.soulStoneUsed = false;
+            GlobalVariable.mindStoneUsed = false;
             GlobalVariable.GameStarted = true;
             GlobalVariable.UsableButton = true;
+            GlobalVariable.PlayerName = null;
 
             Dictionary<string, Vector2> stonePosition = StonePlacement.SetAllStonePositions();
             StonePlacement.PlaceAllStone();
@@ -52,8 +54,9 @@ namespace ModsThanos.Patch {
             GlobalVariable.hasSoulStone = false;
             GlobalVariable.hasSpaceStone = false;
             GlobalVariable.hasTimeStone = false;
+            GlobalVariable.realityStoneUsed = false;
             GlobalVariable.useSnap = false;
-            GlobalVariable.soulStoneUsed = false;
+            GlobalVariable.mindStoneUsed = false;
             GlobalVariable.UsableButton = false;
             GlobalVariable.Thanos = null;
 

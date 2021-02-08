@@ -28,14 +28,13 @@ namespace ModsThanos {
         public static string PlayerName;
         public static Color PlayerColorName;
 
-        public static string PlayerNameInvisiblity;
-
         // Misc
         public static bool GameStarted = false;
         public static bool UsableButton = true;
         public static bool useSnap = false;
         public static GameObject arrow;
-        public static bool soulStoneUsed = false;
+        public static bool mindStoneUsed = false;
+        public static bool realityStoneUsed = false;
 
         // Button
         public static CooldownButton buttonTime = null;

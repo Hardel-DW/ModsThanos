@@ -13,9 +13,9 @@ namespace ModsThanos.Stone.System {
             GlobalVariable.PlayerHat = Player.LocalPlayer.PlayerData.HatId;
             GlobalVariable.PlayerPet = Player.LocalPlayer.PlayerData.PetId;
             GlobalVariable.PlayerSkin = Player.LocalPlayer.PlayerData.SkinId;
-            GlobalVariable.PlayerName = Player.LocalPlayer.PlayerData.PlayerName;
             GlobalVariable.PlayerColor = Player.LocalPlayer.PlayerData.ColorId;
             GlobalVariable.PlayerColorName = PlayerControl.LocalPlayer.nameText.Color;
+            GlobalVariable.PlayerName = Player.LocalPlayer.PlayerData.PlayerName;
 
             List<byte> players = new List<byte>();
 
@@ -36,9 +36,9 @@ namespace ModsThanos.Stone.System {
             player.RpcSetHat((HatType) target.PlayerData.HatId);
             player.RpcSetSkin((SkinType) target.PlayerData.SkinId);
             player.RpcSetPet((PetType) target.PlayerData.PetId);
-            player.RpcSetName(target.PlayerData.PlayerName);
             player.RpcSetColor((ColorType) target.PlayerData.ColorId);
             player.RpcSetColorName(Player.FromPlayerIdFFGALNPKCD(target.PlayerId).nameText.Color, player.PlayerId);
+            player.RpcSetName(target.PlayerData.PlayerName);
         }
 
         public static void OnMindEnded() {
@@ -48,13 +48,12 @@ namespace ModsThanos.Stone.System {
             write.Write(false);
             AmongUsClient.Instance.FinishRpcImmediately(write);
 
+            player.RpcSetName(GlobalVariable.PlayerName);
+            player.RpcSetColorName(new UnityEngine.Color(1f, 1f, 1f, 1f), PlayerControl.LocalPlayer.PlayerId);
             player.RpcSetHat((HatType) GlobalVariable.PlayerHat);
             player.RpcSetSkin((SkinType) GlobalVariable.PlayerSkin);
             player.RpcSetPet((PetType) GlobalVariable.PlayerPet);
-            player.RpcSetName(GlobalVariable.PlayerName);
             player.RpcSetColor((ColorType) GlobalVariable.PlayerColor);
-            player.RpcSetColorName(new UnityEngine.Color(1f, 1f, 1f, 1f), PlayerControl.LocalPlayer.PlayerId);
-
         }
     }
 }
