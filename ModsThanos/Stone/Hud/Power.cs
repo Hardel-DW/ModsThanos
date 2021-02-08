@@ -10,7 +10,7 @@ namespace ModsThanos {
             GlobalVariable.buttonPower = new CooldownButton
                 (() => OnClick(),
                 30f,
-                "ModsThanos.Resources.power-bis.png",
+                "ModsThanos.Resources.power.png",
                 300f,
                 new Vector2(1f, 1f),
                 Visibility.OnlyImpostor,

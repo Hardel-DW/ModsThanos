@@ -19,16 +19,19 @@ namespace ModsThanos.Stone.System {
 
             List<byte> players = new List<byte>();
 
-            foreach (var element in PlayerControl.AllPlayerControls) {
+            foreach (var element in PlayerControl.AllPlayerControls)
                 if (element.PlayerId != PlayerControl.LocalPlayer.PlayerId && !element.Data.IsDead) 
                     players.Add(element.PlayerId);
-            }
 
             Random random = new Random();
             byte RandomPlayer = players[random.Next(0, players.Count)];
 
             Player player = Player.FromPlayerId(PlayerControl.LocalPlayer.PlayerId);
             Player target = Player.FromPlayerId(RandomPlayer);
+
+            MessageWriter write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.MindChangedValue, SendOption.None, -1);
+            write.Write(true);
+            AmongUsClient.Instance.FinishRpcImmediately(write);
 
             player.RpcSetHat((HatType) target.PlayerData.HatId);
             player.RpcSetSkin((SkinType) target.PlayerData.SkinId);
@@ -41,6 +44,9 @@ namespace ModsThanos.Stone.System {
         public static void OnMindEnded() {
             HelperSprite.ShowAnimation(1, 15, true, "ModsThanos.Resources.anim-mind.png", 48, 1, Player.LocalPlayer.GameObject.transform.position, 1);
             Player player = Player.FromPlayerId(PlayerControl.LocalPlayer.PlayerId);
+            MessageWriter write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.MindChangedValue, SendOption.None, -1);
+            write.Write(false);
+            AmongUsClient.Instance.FinishRpcImmediately(write);
 
             player.RpcSetHat((HatType) GlobalVariable.PlayerHat);
             player.RpcSetSkin((SkinType) GlobalVariable.PlayerSkin);
@@ -48,6 +54,7 @@ namespace ModsThanos.Stone.System {
             player.RpcSetName(GlobalVariable.PlayerName);
             player.RpcSetColor((ColorType) GlobalVariable.PlayerColor);
             player.RpcSetColorName(new UnityEngine.Color(1f, 1f, 1f, 1f), PlayerControl.LocalPlayer.PlayerId);
+
         }
     }
 }

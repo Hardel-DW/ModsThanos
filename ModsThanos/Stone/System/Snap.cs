@@ -8,14 +8,19 @@ namespace ModsThanos.Stone.System {
         public static KGIKNCBGPFJ camera = Camera.main.GetComponent<KGIKNCBGPFJ>();
 
         public static void OnSnapPressed() {
+
+            ModThanos.Logger.LogInfo("Snap Click Top");
+            MessageWriter write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.Snap, SendOption.None, -1);
+            write.Write(PlayerControl.LocalPlayer.PlayerId);
+            AmongUsClient.Instance.FinishRpcImmediately(write);
+
+            ModThanos.Logger.LogInfo("Snap Click Bttom");
+
             GlobalVariable.useSnap = true;
             camera.shakeAmount = 0.2f;
             camera.shakePeriod = 1200f;
             HudManager.Instance.FullScreen.enabled = true;
             HudManager.Instance.FullScreen.color = new Color(1f, 1f, 1f, 0f);
-
-            MessageWriter write = AmongUsClient.Instance.StartRpc(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.Snap, SendOption.None);
-            write.EndMessage();
         }
 
         public static void Incremente() {
@@ -23,11 +28,8 @@ namespace ModsThanos.Stone.System {
             camera.shakePeriod -= 1;
 
             Color currentColor = HudManager.Instance.FullScreen.color;
-
-            //ModThanos.Logger.LogInfo($"Color Alpha {currentColor.a + 0.002f}, CameraShake {camera.shakeAmount}, CameraPeriod {camera.shakePeriod}");
-
             HudManager.Instance.FullScreen.enabled = true;
-            HudManager.Instance.FullScreen.color = new Color(currentColor.r, currentColor.g, currentColor.b, currentColor.a + 0.000f);
+            HudManager.Instance.FullScreen.color = new Color(currentColor.r, currentColor.g, currentColor.b, currentColor.a + 0.002f);
         }
 
         public static void OnSnapEnded() {

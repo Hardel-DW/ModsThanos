@@ -26,7 +26,9 @@ namespace ModsThanos {
         }
 
         private static void OnClick() {
+            ModThanos.Logger.LogInfo("Snap Click");
             Stone.System.Snap.OnSnapPressed();
+            ModThanos.Logger.LogInfo("Snap Click End");
         }
 
         private static void OnUpdate(CooldownButton button) {

@@ -38,6 +38,7 @@ namespace ModsThanos.Stone.System {
     public static class RpcFunctions {
         static public void TurnInvis(bool isInvis, PlayerControl player) {
             var playerRenderer = player.myRend;
+
             if (isInvis) {
                 Reality.invisPlayers.Add(player.PlayerId);
                 if (player == PlayerControl.LocalPlayer || PlayerControl.LocalPlayer.Data.IsImpostor || PlayerControl.LocalPlayer.Data.IsDead) {
@@ -45,43 +46,25 @@ namespace ModsThanos.Stone.System {
                     player.HatRenderer.FrontLayer.SetColorAlpha(0.2f);
                     player.HatRenderer.BackLayer.SetColorAlpha(0.2f);
                     player.MyPhysics.Skin.layer.SetColorAlpha(0.2f);
-                    if (player.CurrentPet != null) {
-                        player.CurrentPet.rend.SetColorAlpha(0.2f);
-                    }
+                    if (player.CurrentPet != null) player.CurrentPet.rend.SetColorAlpha(0.2f);       
+                    
                 } else {
+                    GlobalVariable.PlayerNameInvisiblity = player.nameText.Text;
                     playerRenderer.SetColorAlpha(0f);
                     player.HatRenderer.FrontLayer.SetColorAlpha(0f);
                     player.HatRenderer.BackLayer.SetColorAlpha(0f);
                     player.MyPhysics.Skin.layer.SetColorAlpha(0f);
-                    player.nameText.Color = new Color(player.nameText.Color.r, player.nameText.Color.g, player.nameText.Color.b, 0f);
-                    if (player.CurrentPet != null) {
-                        player.CurrentPet.rend.SetColorAlpha(0f);
-                    }
+                    player.nameText.Text = "";
+                    if (player.CurrentPet != null) player.CurrentPet.rend.SetColorAlpha(0f);
                 }
             } else {
                 Reality.invisPlayers.Remove(player.PlayerId);
-
-                ModThanos.Logger.LogInfo("Test 1");
                 playerRenderer.SetColorAlpha(1f);
-
-                ModThanos.Logger.LogInfo("Test 2");
                 player.HatRenderer.FrontLayer.SetColorAlpha(1f);
-
-                ModThanos.Logger.LogInfo("Test 3");
                 player.HatRenderer.BackLayer.SetColorAlpha(1f);
-
-                ModThanos.Logger.LogInfo("Test 4");
                 player.MyPhysics.Skin.layer.SetColorAlpha(1f);
-
-                ModThanos.Logger.LogInfo("Test 5");
-                player.nameText.Color = new Color(player.nameText.Color.r, player.nameText.Color.g, player.nameText.Color.b, 1f);
-                if (player.CurrentPet != null) {
-
-                    ModThanos.Logger.LogInfo("Test 6");
-                    player.CurrentPet.rend.SetColorAlpha(1f);
-
-                    ModThanos.Logger.LogInfo("Test 7");
-                }
+                player.nameText.Text = GlobalVariable.PlayerNameInvisiblity;
+                if (player.CurrentPet != null) player.CurrentPet.rend.SetColorAlpha(1f);                
             }
         }
 

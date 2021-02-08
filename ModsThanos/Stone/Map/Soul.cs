@@ -8,7 +8,7 @@ namespace ModsThanos.Stone.Map {
         public static void Place(Vector3 position) {
 
             if (!GlobalVariable.stoneObjects.ContainsKey("Soul")) {
-                new ComponentMap(position, "ModsThanos.Resources.soul-bis.png", "Soul", CustomGameOptions.VisibilitySoul);
+                new ComponentMap(position, "ModsThanos.Resources.soul.png", "Soul", CustomGameOptions.VisibilitySoul);
 
                 if (AmongUsClient.Instance.GameMode == GameModes.FreePlay || !PlayerControl.LocalPlayer.Data.IsImpostor) {
                     var gameObject = new GameObject { layer = 5 };

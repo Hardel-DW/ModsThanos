@@ -10,7 +10,7 @@ namespace ModsThanos {
             GlobalVariable.buttonTime = new CooldownButton
                 (() => OnClick(),
                 30f,
-                "ModsThanos.Resources.time-bis.png",
+                "ModsThanos.Resources.time.png",
                 300f,
                 new Vector2(0f, 2f),
                 Visibility.OnlyImpostor,

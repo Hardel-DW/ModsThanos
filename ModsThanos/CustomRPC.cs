@@ -17,6 +17,7 @@
         ReplaceStone = 115,
         SetPlayerSoulStone = 116,
         RemovePlayerSoulStone = 117,
-        SetColorName = 118
+        SetColorName = 118,
+        MindChangedValue = 119
     }
 }

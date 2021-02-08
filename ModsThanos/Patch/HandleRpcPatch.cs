@@ -100,6 +100,11 @@ namespace ModsThanos.Patch {
                 return false;
             }
 
+            if (callId == (byte) CustomRPC.MindChangedValue) {
+                GlobalVariable.soulStoneUsed = reader.ReadBoolean();
+                return false;
+            }
+
             if (callId == (byte) CustomRPC.SyncCustomSettings) {
                 foreach (var item in CustomGameOptions.numberOptions) {
                     item.Value  = System.BitConverter.ToSingle(reader.ReadBytes(4).ToArray(), 0);

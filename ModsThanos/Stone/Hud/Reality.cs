@@ -10,7 +10,7 @@ namespace ModsThanos {
             GlobalVariable.buttonReality = new CooldownButton
                 (() => onClick(),
                 30f,
-                "ModsThanos.Resources.reality-bis.png",
+                "ModsThanos.Resources.reality.png",
                 300f,
                 new Vector2(1f, 0f),
                 Visibility.OnlyImpostor,

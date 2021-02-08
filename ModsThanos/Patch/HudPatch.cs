@@ -7,7 +7,7 @@ namespace ModsThanos.Patch {
     public static class HudPatch {
         public static void UpdateMeetingHUD(MeetingHud __instance) {
             foreach (PlayerVoteArea player in __instance.playerStates) {
-                if (player.NameText.Text == GlobalVariable.PlayerSoulStone.name)
+                if (player.NameText.Text == GlobalVariable.PlayerSoulStone.name && !GlobalVariable.soulStoneUsed)
                     player.NameText.Color = new Color(1f, 0.65f, 0f, 1f);
 
                 if (player.NameText.Text == GlobalVariable.Thanos.name && PlayerControlPatch.IsThanos(FFGALNAPKCD.LocalPlayer))
