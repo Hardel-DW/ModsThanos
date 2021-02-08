@@ -47,7 +47,7 @@ namespace ModsThanos.Stone.System {
                 Player.LocalPlayer.PlayerControl.transform.position = currentTimePoint.Position;
                 PlayerControl.LocalPlayer.gameObject.GetComponent<Rigidbody2D>().velocity = currentTimePoint.Velocity;
 
-                //ModThanos.Logger.LogInfo($"DeadTimeRewind {deadtime}, IsDeadDeadTimeRewind {isDead}, UnixTimeRewind {currentTimePoint.Unix} UnixTime with record {deadtime + (long) recordTime}");
+                ////ModThanos.Logger.LogInfo($"DeadTimeRewind {deadtime}, IsDeadDeadTimeRewind {isDead}, UnixTimeRewind {currentTimePoint.Unix} UnixTime with record {deadtime + (long) recordTime}");
                 if (isDead && currentTimePoint.Unix < deadtime && PlayerControl.LocalPlayer.Data.IsDead) {
                     Player.LocalPlayer.Revive();
                     var body = UnityEngine.Object.FindObjectsOfType<DeadBody>().FirstOrDefault(b => b.ParentId == Player.LocalPlayer.PlayerId);

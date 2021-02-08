@@ -50,7 +50,7 @@ namespace ModsThanos {
                     break;
 
                     default:
-                    ModThanos.Logger.LogInfo("Pierre inconnu rammasser");
+                    //ModThanos.Logger.LogInfo("Pierre inconnu rammasser");
                     break;
                 }
 
@@ -66,7 +66,7 @@ namespace ModsThanos {
             AmongUsClient.Instance.FinishRpcImmediately(write);
 
             foreach (var item in GlobalVariable.stoneObjects) {
-                ModThanos.Logger.LogInfo($"Name: {item}");
+                //ModThanos.Logger.LogInfo($"Name: {item}");
             }
 
             GlobalVariable.stoneObjects[name].DestroyThisObject();

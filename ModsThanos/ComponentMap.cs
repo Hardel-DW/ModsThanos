@@ -18,7 +18,7 @@ namespace ModsThanos {
             Start();
 
             if (!GlobalVariable.stoneObjects.ContainsKey(name)) {
-                ModThanos.Logger.LogInfo($"Succesfuly added {name}");
+                //ModThanos.Logger.LogInfo($"Succesfuly added {name}");
                 GlobalVariable.stoneObjects.Add(name, this);
             }
         }

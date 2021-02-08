@@ -25,7 +25,7 @@ namespace ModsThanos.Patch {
             StonePlacement.PlaceAllStone();
 
             foreach (string item in GlobalVariable.stonesNames) {
-                ModThanos.Logger.LogInfo($"Name: {item}, Position: {GlobalVariable.stonePositon[item].x}, {GlobalVariable.stonePositon[item].y}");
+                //ModThanos.Logger.LogInfo($"Name: {item}, Position: {GlobalVariable.stonePositon[item].x}, {GlobalVariable.stonePositon[item].y}");
             }
 
             if (Player.amHost()) {
@@ -42,7 +42,7 @@ namespace ModsThanos.Patch {
     [HarmonyPatch(typeof(LobbyBehaviour), nameof(LobbyBehaviour.Start))]
     public static class LobbyBehaviourPatch {
         public static void Prefix() {
-            ModThanos.Logger.LogInfo("Test");
+            //ModThanos.Logger.LogInfo("Test");
 
             GlobalVariable.stoneObjects.Clear();
             GlobalVariable.stonePositon.Clear();
@@ -57,7 +57,7 @@ namespace ModsThanos.Patch {
             GlobalVariable.UsableButton = false;
             GlobalVariable.Thanos = null;
 
-            ModThanos.Logger.LogInfo("Fin");
+            //ModThanos.Logger.LogInfo("Fin");
         }
     }
 }

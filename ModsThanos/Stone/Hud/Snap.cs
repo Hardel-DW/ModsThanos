@@ -11,7 +11,7 @@ namespace ModsThanos {
                 (() => OnClick(),
                 15f,
                 "ModsThanos.Resources.snap.png",
-                300f,
+                450f,
                 new Vector2(0.5f,3f),
                 Visibility.OnlyImpostor,
                 __instance,
@@ -26,9 +26,9 @@ namespace ModsThanos {
         }
 
         private static void OnClick() {
-            ModThanos.Logger.LogInfo("Snap Click");
+            //ModThanos.Logger.LogInfo("Snap Click");
             Stone.System.Snap.OnSnapPressed();
-            ModThanos.Logger.LogInfo("Snap Click End");
+            //ModThanos.Logger.LogInfo("Snap Click End");
         }
 
         private static void OnUpdate(CooldownButton button) {

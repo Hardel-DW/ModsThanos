@@ -15,7 +15,7 @@ namespace ModsThanos.Utility {
                 LoadImage(myTexture, image, true);
                 return Sprite.Create(myTexture, new Rect(0, 0, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), PixelPerUnit);
             } catch {
-                ModThanos.Logger.LogInfo("Erreur d'importantion");
+                //ModThanos.Logger.LogInfo("Erreur d'importantion");
             }
             return null;
         }

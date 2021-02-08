@@ -10,7 +10,7 @@ namespace ModsThanos.Patch {
     class HandleRpcPatch {
 
         public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] byte callId, [HarmonyArgument(1)] MessageReader reader) {
-            ModThanos.Logger.LogInfo("Packet du Serveur No : " + callId);
+            //ModThanos.Logger.LogInfo("Packet du Serveur No : " + callId);
 
             if (callId == (byte) CustomRPC.SyncStone) {
                 string stoneName = reader.ReadString();

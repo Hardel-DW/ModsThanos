@@ -51,7 +51,7 @@ namespace ModsThanos.Patch.CustomGameOption {
                 __instance.KJFHAPEDEBH = new Il2CppReferenceArray<LLKOLCLGCBD>(options);
 
                 __instance.GetComponentInParent<Scroller>().YBounds.max = +0.5f + __instance.KJFHAPEDEBH.Count * 0.4F;
-                ModThanos.Logger.LogInfo(__instance.KJFHAPEDEBH.Count);
+                //ModThanos.Logger.LogInfo(__instance.KJFHAPEDEBH.Count);
             }
         }
 
@@ -109,7 +109,7 @@ namespace ModsThanos.Patch.CustomGameOption {
             foreach (var item in GameOptionMenuPatch.stringButtonLists) {
                 if (__instance.TitleText.Text == item.Name) {
 
-                    ModThanos.Logger.LogInfo($"Max: {item.MaxValue}, Index: {item.Index}");
+                    //ModThanos.Logger.LogInfo($"Max: {item.MaxValue}, Index: {item.Index}");
                     item.Index = Math.Min(item.Index + 1, item.MaxValue);
                     FFGALNAPKCD.LocalPlayer.RpcSyncSettings(FFGALNAPKCD.GameOptions);
                     item.Button.NHLMDAOEOAE = item.Index;
@@ -143,7 +143,7 @@ namespace ModsThanos.Patch.CustomGameOption {
 
             foreach (var item in GameOptionMenuPatch.stringButtonLists) {
                 if (__instance.TitleText.Text == item.Name) {
-                    ModThanos.Logger.LogInfo($"Max: {item.MinValue}, Index: {item.Index}");
+                    //ModThanos.Logger.LogInfo($"Max: {item.MinValue}, Index: {item.Index}");
 
                     item.Index = Math.Max(item.Index - 1, item.MinValue);
                     FFGALNAPKCD.LocalPlayer.RpcSyncSettings(FFGALNAPKCD.GameOptions);

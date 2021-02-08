@@ -51,7 +51,7 @@ namespace ModsThanos {
         public static List<CustomNumberOptions> InitNumberOptions() {
             numberOptions.Add(new CustomNumberOptions("Cooldown Time Stone", CooldownTime, 300f, 10f, 5f, ButtonCooldownTime, () => {
                 CooldownTime = numberOptions.Find(item => item.Name == "Cooldown Time Stone").Value;
-                ModThanos.Logger.LogInfo($"CooldownTime: {CooldownTime}");
+                //ModThanos.Logger.LogInfo($"CooldownTime: {CooldownTime}");
                 GlobalVariable.buttonTime.MaxTimer = CooldownTime;
             }));
 

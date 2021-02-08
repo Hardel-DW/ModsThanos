@@ -21,7 +21,7 @@ namespace ModsThanos.Patch {
 
     public static class EndGameCommons {
         public static void ResetGlobalVariable() {
-            ModThanos.Logger.LogInfo("Test End");
+            //ModThanos.Logger.LogInfo("Test End");
 
             GlobalVariable.GameStarted = false;
             GlobalVariable.Thanos = null;
@@ -38,7 +38,7 @@ namespace ModsThanos.Patch {
             GlobalVariable.stoneObjects.Clear();
             GlobalVariable.stonePositon.Clear();
 
-            ModThanos.Logger.LogInfo("Test End Fin");
+            //ModThanos.Logger.LogInfo("Test End Fin");
         }
 
     }

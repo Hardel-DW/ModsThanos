@@ -8,13 +8,9 @@ namespace ModsThanos.Stone.System {
         public static KGIKNCBGPFJ camera = Camera.main.GetComponent<KGIKNCBGPFJ>();
 
         public static void OnSnapPressed() {
-
-            ModThanos.Logger.LogInfo("Snap Click Top");
             MessageWriter write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.Snap, SendOption.None, -1);
             write.Write(PlayerControl.LocalPlayer.PlayerId);
             AmongUsClient.Instance.FinishRpcImmediately(write);
-
-            ModThanos.Logger.LogInfo("Snap Click Bttom");
 
             GlobalVariable.useSnap = true;
             camera.shakeAmount = 0.2f;
