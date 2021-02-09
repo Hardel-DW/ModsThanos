@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Hazel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -184,6 +185,19 @@ namespace ModsThanos.Patch.CustomGameOption {
 
                     foreach (var item in GameOptionMenuPatch.numberButtonLists)
                         UnityEngine.Object.Destroy(item.Button.gameObject);
+
+                    MessageWriter writer = FMLLKEACGIO.Instance.StartRpcImmediately(FFGALNAPKCD.LocalPlayer.NetId, (byte) CustomRPC.SyncCustomSettings, Hazel.SendOption.None, -1);
+
+                    foreach (var item in CustomGameOptions.stringOptions)
+                        item.ValueChanged();
+
+                    foreach (var item in CustomGameOptions.numberOptions)
+                        writer.Write(item.Value);
+
+                    foreach (var item in CustomGameOptions.stringOptions)
+                        writer.Write(item.Value);
+
+                    FMLLKEACGIO.Instance.FinishRpcImmediately(writer);
                 }
             }
         }

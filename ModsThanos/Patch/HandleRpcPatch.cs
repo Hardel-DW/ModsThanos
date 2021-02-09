@@ -112,8 +112,8 @@ namespace ModsThanos.Patch {
                 }
 
                 foreach (var item in CustomGameOptions.stringOptions) {
-                    item.Value = reader.ReadString();
-                    item.ValueChanged();
+                    string newValue = reader.ReadString();
+                    item.ValueChanged(newValue);
                 }
 
                 return false;

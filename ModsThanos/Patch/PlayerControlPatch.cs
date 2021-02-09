@@ -80,6 +80,9 @@ namespace ModsThanos.Patch {
             if (FFGALNAPKCD.AllPlayerControls.Count > 1) {
                 MessageWriter writer = FMLLKEACGIO.Instance.StartRpcImmediately(FFGALNAPKCD.LocalPlayer.NetId, (byte) CustomRPC.SyncCustomSettings, Hazel.SendOption.None, -1);
 
+                foreach (var item in CustomGameOptions.stringOptions)
+                    item.ValueChanged();
+
                 foreach (var item in CustomGameOptions.numberOptions)
                     writer.Write(item.Value);
 

@@ -77,5 +77,10 @@ namespace ModsThanos.Patch.CustomGameOption {
 
             this.OnClick();
         }
+
+        public void ValueChanged(string newValue) {
+            value = newValue;
+            this.OnClick();
+        }
     }
 }
