@@ -35,8 +35,8 @@ namespace ModsThanos {
             BoxCollider2D collider = component.AddComponent<BoxCollider2D>();
             collider.size = new Vector2(1f, 1f);
             collider.isTrigger = true;
-            component.transform.position = position;
-            component.transform.localPosition = position;
+            component.transform.position = new Vector3(position.x, position.y, - 50);
+            component.transform.localPosition = new Vector3(position.x, position.y, -50);
             component.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
 
             component.SetActive(true);
