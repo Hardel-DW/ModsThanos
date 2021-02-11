@@ -21,10 +21,7 @@ namespace ModsThanos.Patch {
 
     public static class EndGameCommons {
         public static void ResetGlobalVariable() {
-            //ModThanos.Logger.LogInfo("Test End");
-
             GlobalVariable.GameStarted = false;
-            GlobalVariable.Thanos = null;
             GlobalVariable.hasMindStone = false;
             GlobalVariable.hasPowerStone = false;
             GlobalVariable.hasRealityStone = false;
@@ -36,10 +33,9 @@ namespace ModsThanos.Patch {
             GlobalVariable.realityStoneUsed = false;
             GlobalVariable.UsableButton = false;
 
+            GlobalVariable.allThanos.Clear();
             GlobalVariable.stoneObjects.Clear();
             GlobalVariable.stonePositon.Clear();
-
-            //ModThanos.Logger.LogInfo("Test End Fin");
         }
 
     }

@@ -28,12 +28,7 @@ namespace ModsThanos.Patch {
                 string stoneName = reader.ReadString();
                 Vector2 vector = reader.ReadVector2();
 
-                if (GlobalVariable.stoneObjects.ContainsKey("Soul"))
-                    GlobalVariable.stoneObjects["Soul"].DestroyThisObject();
-
-                Stone.Map.Soul.Place(vector);
-                GlobalVariable.hasSoulStone = false;
-
+                Stone.StoneDrop.ReplaceStone(stoneName, vector);
                 return false;
             }
 
@@ -79,12 +74,19 @@ namespace ModsThanos.Patch {
             }
 
             if (callId == (byte) CustomRPC.setThanos) {
-                byte readByte = reader.ReadByte();
-                foreach (FFGALNAPKCD player in FFGALNAPKCD.AllPlayerControls) {
-                    if (player.PlayerId == readByte) {
-                        GlobalVariable.Thanos = player;
-                    }
+                GlobalVariable.allThanos.Clear();
+                int readInt = reader.ReadInt32();
+
+                byte readByte;
+                for (int i = 0; i < readInt; i++) {
+                    readByte = reader.ReadByte();
+                    GlobalVariable.allThanos.Add(Player.FromPlayerIdFFGALNPKCD(readByte));
                 }
+
+                foreach (var item in GlobalVariable.allThanos) {
+                    ModThanos.Logger.LogInfo($"Get Thanos Name: {item.nameText.Text}, {item.PlayerId}");
+                }
+
                 return false;
             }
 

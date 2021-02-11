@@ -342,5 +342,27 @@ namespace ModsThanos.Utility {
         public static bool amHost() {
             return AmongUsClient.Instance.AmHost;
         }
+
+        public static byte[] getAllPlayersID(List<FFGALNAPKCD> players) {
+            byte[] playersIds = new byte[players.Count - 1];
+
+            for (int i = 0; i < players.Count - 1; i++) {
+                playersIds[i] = players[i].PlayerId;
+            }
+
+            return playersIds;
+        }
+
+        public static byte getAllImpostors() {
+            byte impostorCount = 0;
+
+            foreach (var player in AllPlayerControls) {
+                if (player.PlayerData.IsImpostor) {
+                    impostorCount++;
+                }
+            }
+
+            return impostorCount;
+        }
     }
 }

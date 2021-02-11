@@ -5,8 +5,9 @@ using UnityEngine;
 namespace ModsThanos {
     public static class GlobalVariable {
 
-        // Player
-        public static FFGALNAPKCD Thanos;
+        // Player       
+        public static List<FFGALNAPKCD> allThanos = new List<FFGALNAPKCD>();
+
         public static FFGALNAPKCD PlayerSoulStone;
 
         // Stone Name
