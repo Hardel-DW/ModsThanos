@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using ModsThanos.Patch.CustomGameOption;
-using ModsThanos.Utility;
 using UnityEngine;
 
 namespace ModsThanos.Patch {
@@ -14,7 +12,7 @@ namespace ModsThanos.Patch {
                 if (PlayerControl.AllPlayerControls != null && PlayerControl.AllPlayerControls.Count > 1) {
                     if (PlayerControl.LocalPlayer != null) {                    
                         foreach (var playerControl in PlayerControl.AllPlayerControls) {
-                            if (PlayerControlPatch.IsThanosByID(playerControl.PlayerId) && PlayerControlPatch.IsThanosByID(PlayerControl.LocalPlayer.PlayerId)) {
+                            if (RoleHelper.IsThanos(playerControl.PlayerId) && RoleHelper.IsThanos(PlayerControl.LocalPlayer.PlayerId)) {
                                 string playerName = playerControl.Data.PlayerName;
 
                                 if (playerName == player.NameText.Text)
@@ -41,25 +39,22 @@ namespace ModsThanos.Patch {
 
             if (GlobalVariable.allThanos != null && PlayerControl.AllPlayerControls.Count > 1 && GlobalVariable.realityStoneUsed)
                 foreach (var player in PlayerControl.AllPlayerControls)
-                    if (PlayerControlPatch.IsThanosByID(player.PlayerId))
+                    if (RoleHelper.IsThanos(player.PlayerId))
                         player.nameText.Color = new Color(1f, 1f, 1f, 0f);
 
             if (GlobalVariable.allThanos != null && PlayerControl.AllPlayerControls.Count > 1) {
                 if (PlayerControl.LocalPlayer != null) {                
-                    if (PlayerControlPatch.IsThanosByID(PlayerControl.LocalPlayer.PlayerId)) {
+                    if (RoleHelper.IsThanos(PlayerControl.LocalPlayer.PlayerId)) {
                         foreach (var player in PlayerControl.AllPlayerControls) {
-                            if (PlayerControlPatch.IsThanosByID(player.PlayerId)) {
+                            if (RoleHelper.IsThanos(player.PlayerId)) {
                                 player.nameText.Color = new Color(0.749f, 0f, 0.839f, 1f);
                             }
                         }
-
-                        __instance.TaskText.Text = "[FFFFFFFF]Objectif: Trouver les pierres pour obtenir le snap.[]\n\n[808080FF]Snap:[] Termine la partie.\n[008516FF]Pierre du temps :[] Permet de revenir dans le temps.\n[822FA8FF]Pierre de pouvoir :[] Permet de tuer en zone.\n[C46f1AFF]Pierre de l'âme :[] les crewmate peuvent la ramasser.\n[A6A02EFF]Pierre de l'esprit :[] Permet de se transformer en quelqu'un.\n[3482BAFF]Pierre de l'espace[]: Pose des portails.\n[D43D3DFF]Pierre de Réalité[]: Permet de se rendre invisible";
                     }
                 }
             }
 
             CooldownButton.HudUpdate();
-            GameOptionsHud.UpdateGameMenu();
         }
     }
 }

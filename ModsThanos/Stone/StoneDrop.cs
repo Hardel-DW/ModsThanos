@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ModsThanos.Stone {
     public static class StoneDrop {
 
-        public static void tryReplaceStone(string stone) {
+        public static void TryReplaceStone(string stone) {
             if (stone == "Mind" && GlobalVariable.hasMindStone) {
                 DestroyStone(stone);
                 Vector2 placement = StonePlacement.GetRandomLocation(stone);
@@ -22,7 +22,7 @@ namespace ModsThanos.Stone {
                 GlobalVariable.PlayerSoulStone = null;
                 MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.RemovePlayerSoulStone, SendOption.None, -1);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
-                Player.LocalPlayer.RpcSetColorName(new Color(1f, 1f, 1f, 1f), Player.LocalPlayer.PlayerId);
+                PlayerControlUtils.RpcSetColorName(new Color(1f, 1f, 1f, 1f), PlayerControl.LocalPlayer.PlayerId);
 
             } else if (stone == "Power" && GlobalVariable.hasPowerStone) {
                 DestroyStone(stone);

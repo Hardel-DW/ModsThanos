@@ -7,7 +7,7 @@ namespace ModsThanos.Stone.Map {
             if (!GlobalVariable.stoneObjects.ContainsKey("Space")) {
 
                 ModThanos.Logger.LogInfo(CustomGameOptions.VisibilitySpace.ToString());
-                new ComponentMap(position, "ModsThanos.Resources.space.png", "Space", CustomGameOptions.VisibilitySpace);
+                new ComponentMap(position, "ModsThanos.Resources.space.png", "Space", CustomGameOptions.VisibilityStringToEnum(CustomGameOptions.VisibilitySpace.GetText()));
             }
         }
     }

@@ -1,14 +1,12 @@
-﻿using ModsThanos.Patch.CustomGameOption;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModsThanos {
     public static class GlobalVariable {
 
         // Player       
-        public static List<FFGALNAPKCD> allThanos = new List<FFGALNAPKCD>();
-
-        public static FFGALNAPKCD PlayerSoulStone;
+        public static List<PlayerControl> allThanos = new List<PlayerControl>();
+        public static PlayerControl PlayerSoulStone;
 
         // Stone Name
         public static string[] stonesNames = new string[] { "Reality", "Power", "Space", "Mind", "Soul", "Time" };

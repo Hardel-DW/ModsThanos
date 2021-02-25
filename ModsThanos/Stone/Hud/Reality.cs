@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using UnityEngine;
+using ModsThanos.Utility;
 using ModsThanos.Utility.Enumerations;
 
 namespace ModsThanos {
@@ -9,13 +10,13 @@ namespace ModsThanos {
         public static void Postfix(HudManager __instance) {
             GlobalVariable.buttonReality = new CooldownButton
                 (() => onClick(),
-                30f,
+                CustomGameOptions.CooldownRealityStone.GetValue(),
                 "ModsThanos.Resources.reality.png",
                 300f,
                 new Vector2(1f, 0f),
                 Visibility.OnlyImpostor,
                 __instance,
-                10f,
+                CustomGameOptions.RealityDuration.GetValue(),
                 () => OnEffectEnd(),
                 () => OnUpdate(GlobalVariable.buttonReality)
             );

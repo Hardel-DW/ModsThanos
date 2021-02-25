@@ -3,6 +3,7 @@ using BepInEx.Configuration;
 using BepInEx.IL2CPP;
 using BepInEx.Logging;
 using HarmonyLib;
+using Reactor;
 using System;
 using System.Linq;
 using System.Net;
@@ -11,9 +12,10 @@ namespace ModsThanos {
 
     [BepInPlugin(Id)]
     [BepInProcess("Among Us.exe")]
+    [BepInDependency(ReactorPlugin.Id)]
     public class ModThanos : BasePlugin
     {
-        public const string Id = "gg.fuzeIII.ModThanos";
+        public const string Id = "gg.fuzeIII.ModsThanos";
         public static ManualLogSource Logger;
 
         public Harmony Harmony { get; } = new Harmony(Id);
@@ -21,9 +23,11 @@ namespace ModsThanos {
         public ConfigEntry<string> Name {
             get; set;
         }
+
         public ConfigEntry<string> Ip {
             get; set;
         }
+
         public ConfigEntry<ushort> Port {
             get; set;
         }
@@ -32,7 +36,7 @@ namespace ModsThanos {
             Logger = Log;
             Logger.LogInfo("ThanosMods est charger !");
             Harmony.PatchAll();
-            UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<PickupGem>();
+            UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<GemBehaviour>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<AnimatedTexture>();
 
             // Server Custom

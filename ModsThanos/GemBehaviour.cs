@@ -2,21 +2,20 @@
 using UnityEngine;
 using ModsThanos.Utility;
 using Hazel;
-using HarmonyLib;
 
 namespace ModsThanos {
-    public class PickupGem : MonoBehaviour {
+    public class GemBehaviour : MonoBehaviour {
 
-        public PickupGem(IntPtr ptr) : base(ptr) { }
+        public GemBehaviour(IntPtr ptr) : base(ptr) { }
 
         void OnTriggerEnter2D(Collider2D collider) {
             PlayerControl player = collider.GetComponent<PlayerControl>();
 
-            if (player != null && !player.Data.IsDead && player.Data.PlayerId == Player.LocalPlayer.PlayerId) {
+            if (player != null && !player.Data.IsDead && player.Data.PlayerId == PlayerControl.LocalPlayer.PlayerId) {
                 if (name == "Soul") {
                     GlobalVariable.hasSoulStone = true;
                 
-                    GlobalVariable.PlayerSoulStone = Player.FromPlayerIdFFGALNPKCD(Player.LocalPlayer.PlayerId);
+                    GlobalVariable.PlayerSoulStone = PlayerControlUtils.FromPlayerId(PlayerControl.LocalPlayer.PlayerId);
 
                     MessageWriter write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.SetPlayerSoulStone, SendOption.None, -1);
                     write.Write(player.PlayerId);
@@ -27,7 +26,7 @@ namespace ModsThanos {
                 }
             }
 
-            if (player != null && !player.Data.IsDead && player.Data.PlayerId == Player.LocalPlayer.PlayerId && Player.LocalPlayer.PlayerData.IsImpostor && name != "Soul") {
+            if (player != null && !player.Data.IsDead && player.Data.PlayerId == PlayerControl.LocalPlayer.PlayerId && PlayerControl.LocalPlayer.Data.IsImpostor && name != "Soul") {
                 switch (name) {
                     case "Mind":
                     GlobalVariable.hasMindStone = true;
@@ -70,6 +69,11 @@ namespace ModsThanos {
             }
 
             GlobalVariable.stoneObjects[name].DestroyThisObject();
+        }
+
+        void Update() {
+            if (Vector2.Distance(gameObject.transform.position, new Vector2(-10.418f, 113.000f)) < 1f)
+                gameObject.transform.position = new Vector3(32.596f, -15.570f, -0.5f);
         }
     }
 }

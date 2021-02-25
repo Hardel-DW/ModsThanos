@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using Hazel;
 using ModsThanos.Utility;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,8 +11,6 @@ namespace ModsThanos.Patch {
     class HandleRpcPatch {
 
         public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] byte callId, [HarmonyArgument(1)] MessageReader reader) {
-            //ModThanos.Logger.LogInfo("Packet du Serveur No : " + callId);
-
             if (callId == (byte) CustomRPC.SyncStone) {
                 string stoneName = reader.ReadString();
                 Vector2 vector = reader.ReadVector2();
@@ -64,7 +63,7 @@ namespace ModsThanos.Patch {
 
             if (callId == (byte) CustomRPC.SetPlayerSoulStone) {
                 byte playerId = reader.ReadByte();
-                GlobalVariable.PlayerSoulStone = Player.FromPlayerIdFFGALNPKCD(playerId);
+                GlobalVariable.PlayerSoulStone = PlayerControlUtils.FromPlayerId(playerId);
                 return false;
             }
 
@@ -73,19 +72,12 @@ namespace ModsThanos.Patch {
                 return false;
             }
 
-            if (callId == (byte) CustomRPC.setThanos) {
+            if (callId == (byte) CustomRPC.SetThanos) {
                 GlobalVariable.allThanos.Clear();
-                int readInt = reader.ReadInt32();
+                List<byte> selectedPlayers = reader.ReadBytesAndSize().ToList();
 
-                byte readByte;
-                for (int i = 0; i < readInt; i++) {
-                    readByte = reader.ReadByte();
-                    GlobalVariable.allThanos.Add(Player.FromPlayerIdFFGALNPKCD(readByte));
-                }
-
-                foreach (var item in GlobalVariable.allThanos) {
-                    ModThanos.Logger.LogInfo($"Get Thanos Name: {item.nameText.Text}, {item.PlayerId}");
-                }
+                for (int i = 0; i < selectedPlayers.Count; i++)
+                    GlobalVariable.allThanos.Add(PlayerControlUtils.FromPlayerId(selectedPlayers[i]));
 
                 return false;
             }
@@ -107,16 +99,64 @@ namespace ModsThanos.Patch {
                 return false;
             }
 
-            if (callId == (byte) CustomRPC.SyncCustomSettings) {
-                foreach (var item in CustomGameOptions.numberOptions) {
-                    item.Value  = System.BitConverter.ToSingle(reader.ReadBytes(4).ToArray(), 0);
-                    item.ValueChanged();
-                }
+            if (callId == (byte) CustomRPC.TimeRewind) {
+                Stone.System.Time.isRewinding = true;
+                GlobalVariable.UsableButton = false;
+                PlayerControl.LocalPlayer.moveable = false;
+                HudManager.Instance.FullScreen.color = new Color(0f, 0.639f, 0.211f, 0.3f);
+                HudManager.Instance.FullScreen.enabled = true;
+                return false;
+            }
 
-                foreach (var item in CustomGameOptions.stringOptions) {
-                    string newValue = reader.ReadString();
-                    item.ValueChanged(newValue);
-                }
+            if (callId == (byte) CustomRPC.TimeRevive) {
+                PlayerControl player = PlayerControlUtils.FromPlayerId(reader.ReadByte());
+                player.Revive();
+                var body = Object.FindObjectsOfType<DeadBody>().FirstOrDefault(b => b.ParentId == player.PlayerId);
+
+                if (body != null) Object.Destroy(body.gameObject);
+                return false;
+            }
+
+            if (callId == (byte) CustomRPC.PowerStone) {
+                PlayerControl murder = PlayerControlUtils.FromPlayerId(reader.ReadByte());
+                HelperSprite.ShowAnimation(1, 24, true, "ModsThanos.Resources.anim-power.png", 10, 1, murder.gameObject.transform.position, 5);
+                Vector2 murderPosition = reader.ReadVector2();
+
+                PlayerControlUtils.KillPlayerArea(murderPosition, murder, 3f);
+                return false;
+            }
+
+            if (callId == (byte) CustomRPC.TurnInvisibility) {
+                bool isInvis = reader.ReadBoolean();
+                byte playerId = reader.ReadByte();
+
+                PlayerControl player = PlayerControlUtils.FromPlayerId(playerId);
+                HelperSprite.ShowAnimation(1, 8, true, "ModsThanos.Resources.anim-reality.png", 48, 1, player.gameObject.transform.position, 1);
+
+                GlobalVariable.realityStoneUsed = isInvis;
+                Stone.System.RpcFunctions.TurnInvis(isInvis, __instance);
+                return false;
+            }
+
+            if (callId == (byte) CustomRPC.Snap) {
+                GlobalVariable.useSnap = true;
+                Camera.main.GetComponent<KGIKNCBGPFJ>().shakeAmount = 0.2f;
+                Camera.main.GetComponent<KGIKNCBGPFJ>().shakePeriod = 1200f;
+                HudManager.Instance.FullScreen.enabled = true;
+                HudManager.Instance.FullScreen.color = new Color(1f, 1f, 1f, 0f);
+
+                return false;
+            }
+
+            if (callId == (byte) CustomRPC.SnapEnded) {
+                GlobalVariable.useSnap = false;
+                Camera.main.GetComponent<KGIKNCBGPFJ>().shakeAmount = 0f;
+                Camera.main.GetComponent<KGIKNCBGPFJ>().shakePeriod = 0f;
+                HudManager.Instance.FullScreen.enabled = false;
+                HudManager.Instance.FullScreen.color = new Color(1f, 1f, 1f, 0f);
+
+                PlayerControl player = PlayerControlUtils.FromPlayerId(reader.ReadByte());
+                PlayerControlUtils.KillEveryone(player);
 
                 return false;
             }

@@ -9,7 +9,7 @@ namespace ModsThanos.Stone.Map {
 
             if (!GlobalVariable.stoneObjects.ContainsKey("Soul")) {
                 ModThanos.Logger.LogInfo(CustomGameOptions.VisibilitySoul.ToString());
-                new ComponentMap(position, "ModsThanos.Resources.soul.png", "Soul", CustomGameOptions.VisibilitySoul);
+                new ComponentMap(position, "ModsThanos.Resources.soul.png", "Soul", CustomGameOptions.VisibilityStringToEnum(CustomGameOptions.VisibilitySoul.GetText()));
 
 
                 if (AmongUsClient.Instance.GameMode == GameModes.FreePlay || !PlayerControl.LocalPlayer.Data.IsImpostor) {

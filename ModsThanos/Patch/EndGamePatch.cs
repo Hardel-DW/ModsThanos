@@ -37,6 +37,5 @@ namespace ModsThanos.Patch {
             GlobalVariable.stoneObjects.Clear();
             GlobalVariable.stonePositon.Clear();
         }
-
     }
 }

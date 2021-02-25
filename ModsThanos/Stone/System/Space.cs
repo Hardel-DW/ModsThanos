@@ -6,10 +6,6 @@ using ModsThanos.Utility;
 using System.Collections.Generic;
 
 namespace ModsThanos.Stone.System {
-    using Vent = OPPMFCFACJB;
-    using ShipStatus = HLBNNHFCNAJ;
-    using PlayerControl = FFGALNAPKCD;
-    using AmongUsClient = FMLLKEACGIO;
 
     public static class Space {
         private static List<Vent> listVent = new List<Vent>();
@@ -33,7 +29,7 @@ namespace ModsThanos.Stone.System {
             int id = 0;
 
             while (true) {
-                if (!ShipStatus.Instance.CIAHFBANKDD.Any(v => v.Id == id)) {
+                if (!ShipStatus.Instance.AllVents.Any(v => v.Id == id)) {
                     return id;
                 }
                 id++;
@@ -53,16 +49,16 @@ namespace ModsThanos.Stone.System {
 
             vent.Id = id;
             vent.transform.position = postion;
-            vent.Left = leftVent == int.MaxValue ? null : ShipStatus.Instance.CIAHFBANKDD.FirstOrDefault(v => v.Id == leftVent);
-            vent.Center = centerVent == int.MaxValue ? null : ShipStatus.Instance.CIAHFBANKDD.FirstOrDefault(v => v.Id == centerVent);
-            vent.Right = rightVent == int.MaxValue ? null : ShipStatus.Instance.CIAHFBANKDD.FirstOrDefault(v => v.Id == rightVent);
+            vent.Left = leftVent == int.MaxValue ? null : ShipStatus.Instance.AllVents.FirstOrDefault(v => v.Id == leftVent);
+            vent.Center = centerVent == int.MaxValue ? null : ShipStatus.Instance.AllVents.FirstOrDefault(v => v.Id == centerVent);
+            vent.Right = rightVent == int.MaxValue ? null : ShipStatus.Instance.AllVents.FirstOrDefault(v => v.Id == rightVent);
 
-            var allVents = ShipStatus.Instance.CIAHFBANKDD.ToList();
+            var allVents = ShipStatus.Instance.AllVents.ToList();
             allVents.Add(vent);
-            ShipStatus.Instance.CIAHFBANKDD = allVents.ToArray();
+            ShipStatus.Instance.AllVents = allVents.ToArray();
 
             if (lastVent != null) {
-                lastVent.Right = ShipStatus.Instance.CIAHFBANKDD.FirstOrDefault(v => v.Id == id);
+                lastVent.Right = ShipStatus.Instance.AllVents.FirstOrDefault(v => v.Id == id);
             }
 
             lastVent = vent;

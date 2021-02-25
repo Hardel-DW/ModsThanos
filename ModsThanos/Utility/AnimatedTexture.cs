@@ -20,7 +20,6 @@ namespace ModsThanos {
 		void Start() {
 			renderer = this.gameObject.AddComponent<SpriteRenderer>();
 			sprites = Utility.HelperSprite.LoadTileTextureEmbed(image, PixelPerUnit, TileX, TileY);
-
 		}
 
 		void Update() {

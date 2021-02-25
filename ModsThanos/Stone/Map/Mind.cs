@@ -6,7 +6,7 @@ namespace ModsThanos.Stone.Map {
         public static void Place(Vector3 position) {
             if (!GlobalVariable.stoneObjects.ContainsKey("Mind")) {
                 ModThanos.Logger.LogInfo(CustomGameOptions.VisibilityMind.ToString());
-                new ComponentMap(position, "ModsThanos.Resources.mind.png", "Mind", CustomGameOptions.VisibilityMind);
+                new ComponentMap(position, "ModsThanos.Resources.mind.png", "Mind", CustomGameOptions.VisibilityStringToEnum(CustomGameOptions.VisibilityMind.GetText()));
             }
         }
     }

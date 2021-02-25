@@ -18,7 +18,6 @@ namespace ModsThanos {
             Start();
 
             if (!GlobalVariable.stoneObjects.ContainsKey(name)) {
-                //ModThanos.Logger.LogInfo($"Succesfuly added {name}");
                 GlobalVariable.stoneObjects.Add(name, this);
             }
         }
@@ -28,10 +27,10 @@ namespace ModsThanos {
             component = new GameObject(this.GameObjectName);
             if (this.visibility) {
                 SpriteRenderer renderer = component.AddComponent<SpriteRenderer>();
-                renderer.sprite = Utility.HelperSprite.LoadSpriteFromEmbeddedResources(Ressource, CustomGameOptions.stoneSize);
+                renderer.sprite = Utility.HelperSprite.LoadSpriteFromEmbeddedResources(Ressource, CustomGameOptions.StoneSize.GetValue());
             }
 
-            PickupGem PickupGem = component.AddComponent<PickupGem>();
+            GemBehaviour gemBehaviour = component.AddComponent<GemBehaviour>();
             BoxCollider2D collider = component.AddComponent<BoxCollider2D>();
             collider.size = new Vector2(1f, 1f);
             collider.isTrigger = true;

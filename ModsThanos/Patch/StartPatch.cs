@@ -10,6 +10,8 @@ namespace ModsThanos.Patch {
     [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.Start))]
     public static class ShipStatusPatch {
         public static void Prefix(ShipStatus __instance) {
+            Stone.System.Time.pointsInTime.Clear();
+            Stone.System.Time.recordTime = CustomGameOptions.TimeDuration.GetValue();
             GlobalVariable.hasMindStone = false;
             GlobalVariable.hasPowerStone = false;
             GlobalVariable.hasRealityStone = false;
@@ -23,10 +25,21 @@ namespace ModsThanos.Patch {
             GlobalVariable.UsableButton = true;
             GlobalVariable.PlayerName = null;
 
+            // Button Timer
+            Stone.System.Time.recordTime = CustomGameOptions.TimeDuration.GetValue();
+            GlobalVariable.buttonMind.MaxTimer = CustomGameOptions.CooldownMindStone.GetValue();
+            GlobalVariable.buttonMind.EffectDuration = CustomGameOptions.MindDuration.GetValue();
+            GlobalVariable.buttonReality.MaxTimer = CustomGameOptions.CooldownRealityStone.GetValue();
+            GlobalVariable.buttonReality.EffectDuration = CustomGameOptions.RealityDuration.GetValue();
+            GlobalVariable.buttonTime.MaxTimer = CustomGameOptions.CooldownTimeStone.GetValue();
+            GlobalVariable.buttonTime.EffectDuration = CustomGameOptions.TimeDuration.GetValue() / 2;
+            GlobalVariable.buttonPower.MaxTimer = CustomGameOptions.CooldownPowerStone.GetValue();
+            GlobalVariable.buttonSpace.MaxTimer = CustomGameOptions.CooldownSpaceStone.GetValue();
+
             Dictionary<string, Vector2> stonePosition = StonePlacement.SetAllStonePositions();
             StonePlacement.PlaceAllStone();
 
-            if (Player.amHost()) {
+            if (PlayerControlUtils.AmHost()) {
                 foreach (var stone in stonePosition) {
                     MessageWriter write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.SyncStone, SendOption.None, -1);
                     write.Write(stone.Key);

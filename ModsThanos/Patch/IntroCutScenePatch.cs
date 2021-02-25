@@ -7,7 +7,7 @@ namespace ModsThanos.Patch {
     [HarmonyPatch(typeof(IntroCutScene), nameof(IntroCutScene.MoveNext))]
     public static class IntroCutScenePatch {
         public static void Postfix(IntroCutScene __instance) {
-            if (PlayerControlPatch.IsThanosByID(PlayerControl.LocalPlayer.PlayerId)) {
+            if (RoleHelper.IsThanos(PlayerControl.LocalPlayer.PlayerId)) {
                 __instance.__this.Title.Text = "Thanos";
                 __instance.__this.Title.Color = new Color(0.749f, 0f, 0.839f, 1f);
                 __instance.__this.ImpostorText.Text = "Trouver les pierres, et Défier les crewmates.";

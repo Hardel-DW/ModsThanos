@@ -9,7 +9,7 @@ namespace ModsThanos {
         public static void Postfix(HudManager __instance) {
             GlobalVariable.buttonSpace = new CooldownButton
                 (() => OnClick(),
-                15f,
+                CustomGameOptions.CooldownSpaceStone.GetValue(),
                 "ModsThanos.Resources.space.png",
                 300f,
                 new Vector2(0f, 1f),
@@ -24,10 +24,8 @@ namespace ModsThanos {
         }
 
         private static void OnUpdate(CooldownButton button) {
-            if (!GlobalVariable.UsableButton)
-                button.SetCanUse(false);
-            else
-                button.SetCanUse(GlobalVariable.hasSpaceStone);
+            if (!GlobalVariable.UsableButton) button.SetCanUse(false);
+            else button.SetCanUse(GlobalVariable.hasSpaceStone);
         }
     }
 }

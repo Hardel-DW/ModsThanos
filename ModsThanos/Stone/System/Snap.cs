@@ -38,37 +38,7 @@ namespace ModsThanos.Stone.System {
             write.Write(PlayerControl.LocalPlayer.PlayerId);
             AmongUsClient.Instance.FinishRpcImmediately(write);
 
-            Player.KillEveryone(Player.LocalPlayer);
-        }
-    }
-
-    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.HandleRpc))]
-    class SnapRPC {
-        public static bool Prefix([HarmonyArgument(0)] byte callId, [HarmonyArgument(1)] MessageReader reader) {
-            if (callId == (byte) CustomRPC.Snap) {
-                GlobalVariable.useSnap = true;
-                Camera.main.GetComponent<KGIKNCBGPFJ>().shakeAmount = 0.2f;
-                Camera.main.GetComponent<KGIKNCBGPFJ>().shakePeriod = 1200f;
-                HudManager.Instance.FullScreen.enabled = true;
-                HudManager.Instance.FullScreen.color = new Color(1f, 1f, 1f, 0f);
-
-                return false;
-            }
-
-            if (callId == (byte) CustomRPC.SnapEnded) {
-                GlobalVariable.useSnap = false;
-                Camera.main.GetComponent<KGIKNCBGPFJ>().shakeAmount = 0f;
-                Camera.main.GetComponent<KGIKNCBGPFJ>().shakePeriod = 0f;
-                HudManager.Instance.FullScreen.enabled = false;
-                HudManager.Instance.FullScreen.color = new Color(1f, 1f, 1f, 0f);
-
-                Player player = Player.FromPlayerId(reader.ReadByte());
-                Player.KillEveryone(player);
-
-                return false;
-            }
-
-            return true;
+            PlayerControlUtils.KillEveryone(PlayerControl.LocalPlayer);
         }
     }
 }

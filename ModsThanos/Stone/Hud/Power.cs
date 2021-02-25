@@ -9,7 +9,7 @@ namespace ModsThanos {
         public static void Postfix(HudManager __instance) {
             GlobalVariable.buttonPower = new CooldownButton
                 (() => OnClick(),
-                30f,
+                CustomGameOptions.CooldownPowerStone.GetValue(),
                 "ModsThanos.Resources.power.png",
                 300f,
                 new Vector2(1f, 1f),

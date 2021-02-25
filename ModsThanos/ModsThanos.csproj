@@ -37,6 +37,9 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\Libs\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Essentials">
+      <HintPath>..\Libs\Essentials-2020.12.9s.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="Copy" AfterTargets="Reobfuscate">

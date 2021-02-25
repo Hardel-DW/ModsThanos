@@ -14,9 +14,7 @@ namespace ModsThanos.Utility {
                 Texture2D myTexture = new Texture2D(2, 2, TextureFormat.ARGB32, true);
                 LoadImage(myTexture, image, true);
                 return Sprite.Create(myTexture, new Rect(0, 0, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), PixelPerUnit);
-            } catch {
-                //ModThanos.Logger.LogInfo("Erreur d'importantion");
-            }
+            } catch { }
             return null;
         }
 
@@ -40,9 +38,7 @@ namespace ModsThanos.Utility {
                 }
 
                 return sprites;
-            } catch (Exception e) {
-                ModThanos.Logger.LogInfo("Erreur d'importantion :" + e);
-            }
+            } catch { }
             return null;
         }
 

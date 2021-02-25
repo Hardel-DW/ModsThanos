@@ -1,10 +1,10 @@
 ﻿namespace ModsThanos {
     public enum CustomRPC {
-        setThanos = 100,
+        SetThanos = 100,
         TurnInvisibility = 101,
         PowerStone = 102,
         SpawnPortal = 103,
-        SyncCustomSettings = 104,
+        Unknow = 104,
         TakeRandomApparence = 105,
         InitalApparence = 106,
         Snap = 107,

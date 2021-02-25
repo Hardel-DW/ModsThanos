@@ -7,7 +7,7 @@ namespace ModsThanos.Stone.Map {
             if (!GlobalVariable.stoneObjects.ContainsKey("Time")) {
 
                 ModThanos.Logger.LogInfo(CustomGameOptions.VisibilityTime.ToString());
-                new ComponentMap(position, "ModsThanos.Resources.time.png", "Time", CustomGameOptions.VisibilityTime);
+                new ComponentMap(position, "ModsThanos.Resources.time.png", "Time", CustomGameOptions.VisibilityStringToEnum(CustomGameOptions.VisibilityTime.GetText()));
             }
         }
     }

@@ -9,30 +9,12 @@ namespace ModsThanos.Stone.System {
         public static List<byte> invisPlayers = new List<byte>();
 
         public static void OnRealityPressed(bool isInvis) {
-            HelperSprite.ShowAnimation(1, 8, true, "ModsThanos.Resources.anim-reality.png", 48, 1, Player.LocalPlayer.GameObject.transform.position, 1);
+            HelperSprite.ShowAnimation(1, 8, true, "ModsThanos.Resources.anim-reality.png", 48, 1, PlayerControl.LocalPlayer.gameObject.transform.position, 1);
             var writer = AmongUsClient.Instance.StartRpc(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.TurnInvisibility, SendOption.Reliable);
             writer.Write(isInvis);
             writer.Write(PlayerControl.LocalPlayer.PlayerId);
             writer.EndMessage();
             RpcFunctions.TurnInvis(isInvis, PlayerControl.LocalPlayer);
-        }
-    }
-
-    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.HandleRpc))]
-    class RealityRPC {
-        public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] byte HKHMBLJFLMC, [HarmonyArgument(1)] MessageReader ALMCIJKELCP) {
-            if (HKHMBLJFLMC == (byte) CustomRPC.TurnInvisibility) {
-                bool isInvis = ALMCIJKELCP.ReadBoolean();
-                byte playerId = ALMCIJKELCP.ReadByte();
-
-                Player player = Player.FromPlayerId(playerId);
-                HelperSprite.ShowAnimation(1, 8, true, "ModsThanos.Resources.anim-reality.png", 48, 1, player.GameObject.transform.position, 1);
-
-                GlobalVariable.realityStoneUsed = isInvis;
-                RpcFunctions.TurnInvis(isInvis, __instance);
-                return false;
-            }
-            return true;
         }
     }
 
