@@ -194,7 +194,7 @@ Allez sur ce serveur de [Discord](https://discord.gg/AP9axbXXNC), ou créez un t
 
 # Ressources
 https://github.com/NuclearPowered/Reactor Le Framework que le mod utilise.  
-https://github.com/BepInEx Pour le chargement des mods. 
+https://github.com/BepInEx Pour le chargement des mods.  
 https://github.com/DorCoMaNdO/Reactor-Essentials Pour créer des games options inter-mods.  
 https://github.com/Woodi-dev/Among-Us-Sheriff-Mod Pour les extraits de code.
 
