@@ -3,9 +3,6 @@
   <a href="https://github.com/Hardel-DW/ModsThanos/blob/main/README.fr.md">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/langfr-338px-Flag_of_France.svg.png" />
   </a>
-  <a href="https://github.com/Hardel-DW/ModsThanos/blob/main/README.md">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/383px-Flag_of_the_United_Kingdom.svg.png" />
-  </a>
 </p>
 
 [![Hardel](https://discord.com/assets/e4923594e694a21542a489471ecffa50.svg)](https://discord.gg/AP9axbXXNC)
