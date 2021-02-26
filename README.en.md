@@ -1,4 +1,9 @@
-[![Hardel](https://discord.com/assets/192cb9459cbc0f9e73e2591b700f1857.svg)](https://discord.gg/AP9axbXXNC)
+[![Hardel](https://discord.com/assets/e4923594e694a21542a489471ecffa50.svg)](https://discord.gg/AP9axbXXNC)
+
+### Cliquer ici pour changer de langue.
+[![French](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/langfr-338px-Flag_of_France.svg.png)](https://github.com/Hardel-DW/ModsThanos/blob/main/README.fr.md)
+
+https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/langfr-338px-Flag_of_France.svg.png
 
 # Thanos Mod
 
