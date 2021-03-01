@@ -6,6 +6,9 @@ namespace ModsThanos {
         public static string[] visibilityValue = new string[] { "Everyone", "Thanos", "Crewmate" };
 
         public static CustomToggleOption EnableThanosMods = CustomOption.AddToggle("Enable Thanos Mods", true);
+        public static CustomStringOption ThanosSide = CustomOption.AddString("Thanos Side", new string[] { "Impostor", "Crewmate" });
+        public static CustomNumberOption NumberThanos = CustomOption.AddNumber("Thanos Number", 1f, 1f, 10f, 1f);
+        public static CustomToggleOption DisableSnap = CustomOption.AddToggle("Disable Snap", false);
 
         public static CustomNumberOption CooldownTimeStone = CustomOption.AddNumber("Cooldown Time Stone", 30f, 10f, 300f, 5f);
         public static CustomNumberOption CooldownRealityStone = CustomOption.AddNumber("Cooldown Reality Stone", 10f, 10f, 300f, 5f);
@@ -27,11 +30,19 @@ namespace ModsThanos {
         public static CustomStringOption VisibilityReality = CustomOption.AddString("Reality Stone Visibility", visibilityValue);
 
         public static Visibility VisibilityStringToEnum(string visibility) {
-            VisibilityMind.GetText();
-
             return visibility switch {
                 "Everyone" => Visibility.Everyone,
                 "Thanos" => Visibility.OnlyImpostor,
+                "Crewmate" => Visibility.OnlyCrewmate,
+                _ => Visibility.OnlyImpostor,
+            };
+        }
+
+        public static Visibility SideStringToEnum(string visibility) {
+            return visibility switch
+            {
+                "Everyone" => Visibility.Everyone,
+                "Impostor" => Visibility.OnlyImpostor,
                 "Crewmate" => Visibility.OnlyCrewmate,
                 _ => Visibility.OnlyImpostor,
             };

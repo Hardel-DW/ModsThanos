@@ -12,7 +12,7 @@ namespace ModsThanos.Stone.Map {
                 new ComponentMap(position, "ModsThanos.Resources.soul.png", "Soul", CustomGameOptions.VisibilityStringToEnum(CustomGameOptions.VisibilitySoul.GetText()));
 
 
-                if (AmongUsClient.Instance.GameMode == GameModes.FreePlay || !PlayerControl.LocalPlayer.Data.IsImpostor) {
+                if (AmongUsClient.Instance.GameMode == GameModes.FreePlay || !RoleHelper.IsThanos(PlayerControl.LocalPlayer.PlayerId)) {
                     var gameObject = new GameObject { layer = 5 };
                     var arrow = gameObject.AddComponent<DGPHMLNNPDN>();
                     var renderer = gameObject.AddComponent<SpriteRenderer>();

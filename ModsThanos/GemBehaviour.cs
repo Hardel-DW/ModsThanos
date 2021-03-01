@@ -14,7 +14,6 @@ namespace ModsThanos {
             if (player != null && !player.Data.IsDead && player.Data.PlayerId == PlayerControl.LocalPlayer.PlayerId) {
                 if (name == "Soul") {
                     GlobalVariable.hasSoulStone = true;
-                
                     GlobalVariable.PlayerSoulStone = PlayerControlUtils.FromPlayerId(PlayerControl.LocalPlayer.PlayerId);
 
                     MessageWriter write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.SetPlayerSoulStone, SendOption.None, -1);
@@ -26,34 +25,36 @@ namespace ModsThanos {
                 }
             }
 
-            if (player != null && !player.Data.IsDead && player.Data.PlayerId == PlayerControl.LocalPlayer.PlayerId && PlayerControl.LocalPlayer.Data.IsImpostor && name != "Soul") {
-                switch (name) {
-                    case "Mind":
-                    GlobalVariable.hasMindStone = true;
-                    break;
+            if (player != null && !player.Data.IsDead && player.Data.PlayerId == PlayerControl.LocalPlayer.PlayerId && name != "Soul") {
+                if (RoleHelper.IsThanos(PlayerControl.LocalPlayer.PlayerId)) {
+                    switch (name) {
+                        case "Mind":
+                        GlobalVariable.hasMindStone = true;
+                        break;
 
-                    case "Power":
-                    GlobalVariable.hasPowerStone = true;
-                    break;
+                        case "Power":
+                        GlobalVariable.hasPowerStone = true;
+                        break;
 
-                    case "Reality":
-                    GlobalVariable.hasRealityStone = true;
-                    break;
+                        case "Reality":
+                        GlobalVariable.hasRealityStone = true;
+                        break;
 
-                    case "Space":
-                    GlobalVariable.hasSpaceStone = true;
-                    break;
+                        case "Space":
+                        GlobalVariable.hasSpaceStone = true;
+                        break;
 
-                    case "Time":
-                    GlobalVariable.hasTimeStone = true;
-                    break;
+                        case "Time":
+                        GlobalVariable.hasTimeStone = true;
+                        break;
 
-                    default:
-                    //ModThanos.Logger.LogInfo("Pierre inconnu rammasser");
-                    break;
+                        default:
+                        ModThanos.Logger.LogInfo("Pierre inconnu rammasser");
+                        break;
+                    }
+
+                    StonePickup();
                 }
-
-                StonePickup();
             }
         }
 
@@ -63,10 +64,6 @@ namespace ModsThanos {
             MessageWriter write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.StonePickup, SendOption.None, -1);
             write.Write(name);
             AmongUsClient.Instance.FinishRpcImmediately(write);
-
-            foreach (var item in GlobalVariable.stoneObjects) {
-                //ModThanos.Logger.LogInfo($"Name: {item}");
-            }
 
             GlobalVariable.stoneObjects[name].DestroyThisObject();
         }

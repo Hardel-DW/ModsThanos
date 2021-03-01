@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using Hazel;
+using ModsThanos.Utility.Enumerations;
 using UnhollowerBaseLib;
 
 namespace ModsThanos.Patch {
@@ -10,19 +11,26 @@ namespace ModsThanos.Patch {
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.RpcSetInfected))]
     class SetInfectedPatch {
         public static void Postfix([HarmonyArgument(0)] Il2CppReferenceArray<GameData.PlayerInfo> infected) {
-            List<PlayerControl> impostorsList = PlayerControl.AllPlayerControls.ToArray().ToList().FindAll(x => x.Data.IsImpostor).ToArray().ToList();
+            List<PlayerControl> playersSelections = PlayerControl.AllPlayerControls.ToArray().ToList();
+            Visibility visibility = CustomGameOptions.SideStringToEnum(CustomGameOptions.ThanosSide.GetText());
             GlobalVariable.allThanos.Clear();
 
-            // Investigator
-            if (impostorsList != null && impostorsList.Count > 0 && CustomGameOptions.EnableThanosMods.GetValue()) {
+            if (Visibility.OnlyImpostor == visibility)
+                playersSelections.RemoveAll(x => !x.Data.IsImpostor);
+
+            if (Visibility.OnlyCrewmate == visibility)
+                playersSelections.RemoveAll(x => x.Data.IsImpostor);
+
+            // playersSelections
+            if (playersSelections != null && playersSelections.Count > 0 && CustomGameOptions.EnableThanosMods.GetValue()) {
                 MessageWriter messageWriter = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.SetThanos, SendOption.None, -1);
                 List<byte> playerSelected = new List<byte>();
 
-                for (int i = 0; i < impostorsList.Count; i++) {
+                for (int i = 0; i < CustomGameOptions.NumberThanos.GetValue(); i++) {
                     Random random = new Random();
-                    PlayerControl selectedPlayer = impostorsList[random.Next(0, impostorsList.Count)];
+                    PlayerControl selectedPlayer = playersSelections[random.Next(0, playersSelections.Count)];
                     GlobalVariable.allThanos.Add(selectedPlayer);
-                    impostorsList.Remove(selectedPlayer);
+                    playersSelections.Remove(selectedPlayer);
                     playerSelected.Add(selectedPlayer.PlayerId);
                 }
 

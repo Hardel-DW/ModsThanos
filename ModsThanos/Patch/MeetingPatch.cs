@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using ModsThanos.Utility;
 
 namespace ModsThanos.Patch {
 
@@ -21,7 +22,7 @@ namespace ModsThanos.Patch {
     }
 
     [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.Update))]
-    public static class MeetingStartPatch {
+    public static class MeetingUpdatePatch {
         public static void Postfix(MeetingHud __instance) {
             if (GlobalVariable.allThanos != null) {
                 if (RoleHelper.IsThanos(PlayerControl.LocalPlayer.PlayerId)) {
@@ -33,6 +34,29 @@ namespace ModsThanos.Patch {
                     GlobalVariable.buttonTime.SetCanUse(false);
                     GlobalVariable.buttonSpace.SetCanUse(false);
                 }
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.Awake))]
+    public static class MeetingStartPatch {
+        public static void Postfix(MeetingHud __instance) {
+            if (GlobalVariable.allThanos != null && GlobalVariable.mindStoneUsed) {
+                foreach (var playerData in GlobalVariable.allPlayersData) {
+                    PlayerControl currentPlayer = PlayerControlUtils.FromPlayerId(playerData.PlayerId);
+
+                    currentPlayer.SetPet(playerData.PlayerPet);
+                    currentPlayer.SetSkin(playerData.PlayerSkin);
+                    currentPlayer.SetName(playerData.PlayerName);
+                    currentPlayer.SetHat(playerData.PlayerHat, playerData.PlayerColor);
+                    currentPlayer.SetColor(playerData.PlayerColor);
+                    GlobalVariable.mindStoneUsed = false;
+                }
+            }
+
+            Stone.System.Time.StopRewind();
+            if (GlobalVariable.allThanos != null && GlobalVariable.realityStoneUsed && RoleHelper.IsThanos(PlayerControl.LocalPlayer.PlayerId)) {
+                Stone.System.Reality.OnRealityPressed(false);
             }
         }
     }

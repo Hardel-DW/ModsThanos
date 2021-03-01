@@ -3,6 +3,7 @@ using Hazel;
 using ModsThanos.Map;
 using ModsThanos.Utility;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ModsThanos.Patch {
@@ -24,6 +25,18 @@ namespace ModsThanos.Patch {
             GlobalVariable.GameStarted = true;
             GlobalVariable.UsableButton = true;
             GlobalVariable.PlayerName = null;
+            
+            GlobalVariable.allPlayersData.Clear();
+            foreach (var player in PlayerControl.AllPlayerControls) {
+                GlobalVariable.allPlayersData.Add(new Stone.System.Mind.PlayerData(
+                    player.PlayerId,
+                    player.Data.ColorId,
+                    player.Data.HatId,
+                    player.Data.PetId,
+                    player.Data.SkinId,
+                    player.nameText.Text
+                ));
+            }
 
             // Button Timer
             Stone.System.Time.recordTime = CustomGameOptions.TimeDuration.GetValue();

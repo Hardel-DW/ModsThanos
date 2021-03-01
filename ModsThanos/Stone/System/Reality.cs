@@ -24,7 +24,7 @@ namespace ModsThanos.Stone.System {
 
             if (isInvis) {
                 Reality.invisPlayers.Add(player.PlayerId);
-                if (player == PlayerControl.LocalPlayer || PlayerControl.LocalPlayer.Data.IsImpostor || PlayerControl.LocalPlayer.Data.IsDead) {
+                if (player == PlayerControl.LocalPlayer || RoleHelper.IsThanos(PlayerControl.LocalPlayer.PlayerId) || PlayerControl.LocalPlayer.Data.IsDead) {
                     playerRenderer.SetColorAlpha(0.2f);
                     player.HatRenderer.FrontLayer.SetColorAlpha(0.2f);
                     player.HatRenderer.BackLayer.SetColorAlpha(0.2f);
@@ -59,7 +59,7 @@ namespace ModsThanos.Stone.System {
     public static class PlayerPhysicsLateUpdatePatch {
         public static void Prefix(PlayerPhysics __instance) {
             if (Reality.invisPlayers.Contains(__instance.Field_5.PlayerId)) {
-                if (PlayerControl.LocalPlayer.Data.IsImpostor || PlayerControl.LocalPlayer.Data.IsDead) {
+                if (RoleHelper.IsThanos(PlayerControl.LocalPlayer.PlayerId) || PlayerControl.LocalPlayer.Data.IsDead) {
                     __instance.Field_5.SetHatAlpha(0.2f);
                 } else {
                     __instance.Field_5.SetHatAlpha(0f);

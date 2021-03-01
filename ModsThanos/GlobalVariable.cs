@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ModsThanos.Stone.System.Mind;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModsThanos {
@@ -26,6 +27,7 @@ namespace ModsThanos {
         public static uint PlayerSkin;
         public static string PlayerName;
         public static Color PlayerColorName;
+        public static List<PlayerData> allPlayersData = new List<PlayerData>();
 
         // Misc
         public static bool GameStarted = false;

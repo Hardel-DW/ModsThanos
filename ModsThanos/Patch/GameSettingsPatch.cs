@@ -23,7 +23,7 @@ namespace ModsThanos.Patch {
         [HarmonyPatch(typeof(GameOptionsMenu), nameof(GameOptionsMenu.Update))]
         class Update {
             static void Postfix(ref GameOptionsMenu __instance) {
-                __instance.GetComponentInParent<Scroller>().YBounds.max = 16f;
+                __instance.GetComponentInParent<Scroller>().YBounds.max = 17f;
             }
         }
     }

@@ -22,11 +22,11 @@ namespace ModsThanos {
         }
 
         private static void OnEffectEnd() {
-            Stone.System.Mind.OnMindEnded();
+            Stone.System.Mind.CoreMind.OnMindEnded();
         }
 
         private static void OnClick() {
-            Stone.System.Mind.OnMindPressed();
+            Stone.System.Mind.CoreMind.OnMindPressed();
         }
 
         private static void OnUpdate(CooldownButton button) {

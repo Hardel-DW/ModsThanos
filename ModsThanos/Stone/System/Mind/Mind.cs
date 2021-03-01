@@ -3,8 +3,8 @@ using ModsThanos.Utility;
 using System;
 using System.Collections.Generic;
 
-namespace ModsThanos.Stone.System {
-    public static class Mind {
+namespace ModsThanos.Stone.System.Mind {
+    public static class CoreMind {
 
         public static void OnMindPressed() {
             HelperSprite.ShowAnimation(1, 15, true, "ModsThanos.Resources.anim-mind.png", 48, 1, PlayerControl.LocalPlayer.gameObject.transform.position, 1);
@@ -15,6 +15,7 @@ namespace ModsThanos.Stone.System {
             GlobalVariable.PlayerColor = PlayerControl.LocalPlayer.Data.ColorId;
             GlobalVariable.PlayerColorName = PlayerControl.LocalPlayer.nameText.Color;
             GlobalVariable.PlayerName = PlayerControl.LocalPlayer.Data.PlayerName;
+            GlobalVariable.mindStoneUsed = true;
 
             List<byte> players = new List<byte>();
 
@@ -39,13 +40,14 @@ namespace ModsThanos.Stone.System {
             player.RpcSetName(target.Data.PlayerName);
             PlayerControlUtils.RpcSetColorName(target.nameText.Color, player.PlayerId);        }
 
-        public static void OnMindEnded() {
-            HelperSprite.ShowAnimation(1, 15, true, "ModsThanos.Resources.anim-mind.png", 48, 1, PlayerControl.LocalPlayer.gameObject.transform.position, 1);
+        public static void OnMindEnded(bool wihoutAnimation = false) {
+            if (!wihoutAnimation) HelperSprite.ShowAnimation(1, 15, true, "ModsThanos.Resources.anim-mind.png", 48, 1, PlayerControl.LocalPlayer.gameObject.transform.position, 1);
             PlayerControl player = PlayerControlUtils.FromPlayerId(PlayerControl.LocalPlayer.PlayerId);
             MessageWriter write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte) CustomRPC.MindChangedValue, SendOption.None, -1);
             write.Write(false);
             AmongUsClient.Instance.FinishRpcImmediately(write);
 
+            GlobalVariable.mindStoneUsed = false;
             player.RpcSetName(GlobalVariable.PlayerName);
             PlayerControlUtils.RpcSetColorName(new UnityEngine.Color(1f, 1f, 1f, 1f), PlayerControl.LocalPlayer.PlayerId);
             player.RpcSetHat(GlobalVariable.PlayerHat);

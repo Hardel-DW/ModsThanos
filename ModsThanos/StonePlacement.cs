@@ -82,10 +82,10 @@ namespace ModsThanos.Map {
             });
 
             bool RerollPosition;
+            List<Vector2> vectors = mapLocations[(MapType) MapID].ToList();
             do {
                 RerollPosition = false;
                 var random = new System.Random();
-                Vector2[] vectors = mapLocations[(MapType) MapID];
                 currentPositon = vectors[random.Next(vectors.Count())];
 
                 if (GlobalVariable.stonePositon == null)
@@ -93,8 +93,10 @@ namespace ModsThanos.Map {
 
                 foreach (KeyValuePair<string, Vector2> element in GlobalVariable.stonePositon) {
                     float positionBeetween = Vector2.Distance(element.Value, currentPositon);
-                    if (positionBeetween == 0f)
+                    if (positionBeetween == 1f) {
                         RerollPosition = true;
+                        vectors.Remove(currentPositon);
+                    }
                 }
             } while (RerollPosition);
 

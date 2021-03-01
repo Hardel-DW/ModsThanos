@@ -32,7 +32,7 @@ namespace ModsThanos {
         }
 
         private static void OnUpdate(CooldownButton button) {
-            if (!GlobalVariable.UsableButton) {
+            if (!GlobalVariable.UsableButton || CustomGameOptions.DisableSnap.GetValue()) {
                 button.SetCanUse(false);
             } else {
                 if (GlobalVariable.hasMindStone && GlobalVariable.hasSpaceStone && GlobalVariable.hasPowerStone && GlobalVariable.hasTimeStone && GlobalVariable.hasSoulStone && GlobalVariable.hasRealityStone)
