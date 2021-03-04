@@ -54,10 +54,8 @@ namespace ModsThanos.Utility {
                     continue;
 
                 float distance = Vector2.Distance(psotion, Position(player));
-
-                if (distance < size) {
-                    murder.MurderPlayer(player);
-                }
+                if (distance < size)
+                    player.MurderPlayer(player);
             }
         }
 
@@ -73,16 +71,12 @@ namespace ModsThanos.Utility {
             write.EndMessage();
         }
 
-        public static void KillSelf(PlayerControl player) {
-            player.MurderPlayer(FromPlayerId(player.PlayerId));
-        }
-
         public static void KillEveryone(PlayerControl murder) {
             foreach (var player in PlayerControl.AllPlayerControls) {
                 if (player.PlayerId == murder.PlayerId)
                     continue;
 
-                murder.MurderPlayer(player);
+                player.MurderPlayer(player);
             }
         }
 
