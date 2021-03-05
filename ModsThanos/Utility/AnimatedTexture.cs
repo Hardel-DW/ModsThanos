@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Reactor;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModsThanos {
+
+	[RegisterInIl2Cpp]
 	class AnimatedTexture : MonoBehaviour {
 		public AnimatedTexture(IntPtr ptr) : base(ptr) { }
 

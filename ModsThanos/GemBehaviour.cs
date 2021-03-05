@@ -2,8 +2,11 @@
 using UnityEngine;
 using ModsThanos.Utility;
 using Hazel;
+using Reactor;
 
 namespace ModsThanos {
+
+    [RegisterInIl2Cpp]
     public class GemBehaviour : MonoBehaviour {
 
         public GemBehaviour(IntPtr ptr) : base(ptr) { }

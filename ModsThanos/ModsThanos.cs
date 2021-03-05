@@ -35,16 +35,16 @@ namespace ModsThanos {
         public override void Load() {
             Logger = Log;
             Logger.LogInfo("ThanosMods est charger !");
+            RegisterInIl2CppAttribute.Register();
             Harmony.PatchAll();
-            UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<GemBehaviour>();
-            UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<AnimatedTexture>();
+            ResourceLoader.LoadAssets();
 
-            // Server Custom
+            #region Cheeps Server
             Name = Config.Bind("Server", "Name", "Cheep-YT.com");
             Ip = Config.Bind("Server", "Ipv4 or Hostname", "207.180.234.175");
             Port = Config.Bind("Server", "Port", (ushort) 22023);
 
-            var defaultRegions = AOBNFCIHAJL.DefaultRegions.ToList();
+            var defaultRegions = ServerManager.DefaultRegions.ToList();
             var ip = Ip.Value;
             if (Uri.CheckHostName(Ip.Value).ToString() == "Dns") {
                 Log.LogMessage("Resolving " + ip + " ...");
@@ -63,13 +63,14 @@ namespace ModsThanos {
             }
 
             var port = Port.Value;
-            defaultRegions.Insert(0, new OIBMKGDLGOG(
+            defaultRegions.Insert(0, new RegionInfo(
                 Name.Value, ip, new[] {
-                    new PLFDMKKDEMI($"{Name.Value}-Master-1", ip, port)
+                    new ServerInfo($"{Name.Value}-Master-1", ip, port)
                 })
             );
 
-            AOBNFCIHAJL.DefaultRegions = defaultRegions.ToArray();
+            ServerManager.DefaultRegions = defaultRegions.ToArray();
+            #endregion
         }
     }
 }
