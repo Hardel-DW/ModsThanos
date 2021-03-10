@@ -22,6 +22,7 @@ namespace ModsThanos {
         private Action OnClick;
         private Action OnEffectEnd;
         private Action OnUpdate;
+        private Sprite sprite;
         private HudManager hudManager;
         private float pixelsPerUnit;
         private bool canUse;
@@ -34,6 +35,7 @@ namespace ModsThanos {
             this.PositionOffset = PositionOffset;
             this.EffectDuration = EffectDuration;
             this.visibility = visibility;
+            this.sprite = HelperSprite.LoadSpriteFromEmbeddedResources(ResourceName, pixelsPerUnit);
             pixelsPerUnit = PixelsPerUnit;
             MaxTimer = Cooldown;
             Timer = MaxTimer;
@@ -51,6 +53,7 @@ namespace ModsThanos {
             this.pixelsPerUnit = pixelsPerUnit;
             this.PositionOffset = PositionOffset;
             this.visibility = visibility;
+            this.sprite = HelperSprite.LoadSpriteFromEmbeddedResources(ResourceName, pixelsPerUnit);
             MaxTimer = Cooldown;
             Timer = MaxTimer;
             ResourceName = ImageEmbededResourcePath;
@@ -65,7 +68,7 @@ namespace ModsThanos {
             startColorText = killButtonManager.TimerText.Color;
             killButtonManager.gameObject.SetActive(true);
             killButtonManager.renderer.enabled = true;
-            killButtonManager.renderer.sprite = HelperSprite.LoadSpriteFromEmbeddedResources(ResourceName, pixelsPerUnit);
+            killButtonManager.renderer.sprite = sprite;
             PassiveButton button = killButtonManager.GetComponent<PassiveButton>();
             button.OnClick.RemoveAllListeners();
             button.OnClick.AddListener((UnityEngine.Events.UnityAction) listener);
@@ -88,6 +91,7 @@ namespace ModsThanos {
         public static void HudUpdate() {
             buttons.RemoveAll(item => item.killButtonManager == null);
             for (int i = 0; i < buttons.Count; i++) {
+                buttons[i].killButtonManager.renderer.sprite = buttons[i].sprite;
                 buttons[i].OnUpdate();
                 buttons[i].Update();
             }
