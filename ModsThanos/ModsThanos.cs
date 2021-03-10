@@ -7,6 +7,7 @@ using Reactor;
 using System;
 using System.Linq;
 using System.Net;
+using UnhollowerBaseLib;
 
 namespace ModsThanos {
 
@@ -20,17 +21,11 @@ namespace ModsThanos {
 
         public Harmony Harmony { get; } = new Harmony(Id);
 
-        public ConfigEntry<string> Name {
-            get; set;
-        }
+        public ConfigEntry<string> Name { get; set; }
 
-        public ConfigEntry<string> Ip {
-            get; set;
-        }
+        public ConfigEntry<string> Ip { get; set; }
 
-        public ConfigEntry<ushort> Port {
-            get; set;
-        }
+        public ConfigEntry<ushort> Port { get; set; }
 
         public override void Load() {
             Logger = Log;
@@ -63,11 +58,11 @@ namespace ModsThanos {
             }
 
             var port = Port.Value;
-            defaultRegions.Insert(0, new RegionInfo(
-                Name.Value, ip, new[] {
-                    new ServerInfo($"{Name.Value}-Master-1", ip, port)
-                })
-            );
+            Il2CppReferenceArray<ServerInfo> serverInfo = new ServerInfo[1] { 
+                new ServerInfo(Name.Value, Ip.Value, Port.Value) 
+            };
+
+            defaultRegions.Insert(0, new StaticRegionInfo(Name.Value, StringNames.NoTranslation, "50", serverInfo).Cast<IRegionInfo>());            
 
             ServerManager.DefaultRegions = defaultRegions.ToArray();
             #endregion
