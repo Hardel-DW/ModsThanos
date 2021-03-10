@@ -2,17 +2,32 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Version>1.0.0</Version>
-    <GameVersion>2020.12.9s</GameVersion>
-    <Mappings>NuclearPowered/Mappings:0.1.0-alpha.2</Mappings>
+    <Mappings>NuclearPowered/Mappings:0.2.0</Mappings>
 
-    <Description>Mod to make an impostor feel like he is inevitable</Description>
+    <Description>Mods Thanos</Description>
     <Authors>Hardel</Authors>
-    <AssemblyName>ModsThanos</AssemblyName>
-    <RootNamespace>ModsThanos</RootNamespace>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GamePlatform)' == 'Steam'">
+    <GameVersion>2021.3.5s</GameVersion>
+    <DefineConstants>$(DefineConstants);STEAM</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GamePlatform)' == 'Itch'">
+    <GameVersion>2021.3.5i</GameVersion>
+    <DefineConstants>$(DefineConstants);ITCH</DefineConstants>
+  </PropertyGroup>
+
 
   <ItemGroup>
     <Deobfuscate Include="$(AmongUs)\BepInEx\plugins\Reactor-$(GameVersion).dll" />
+    <PackageReference Include="Reactor.OxygenFilter.MSBuild" Version="0.2.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Resources\power.png" />
     <EmbeddedResource Include="Resources\mind.png" />
     <EmbeddedResource Include="Resources\soul.png" />
@@ -30,12 +45,11 @@
 
     <EmbeddedResource Include="Resources\arrow.png" />
     <EmbeddedResource Include="Resources\portal.png" />
-    <PackageReference Include="Reactor.OxygenFilter.MSBuild" Version="0.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Essentials">
-      <HintPath>..\Libs\Essentials-2020.12.9s.dll</HintPath>
+      <HintPath>$(AmongUs)\BepInEx\plugins\Essentials-$(GameVersion).dll</HintPath>
     </Reference>
   </ItemGroup>
 

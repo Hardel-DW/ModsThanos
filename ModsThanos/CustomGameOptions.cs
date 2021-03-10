@@ -1,4 +1,4 @@
-﻿using Essentials.CustomOptions;
+﻿using Essentials.Options;
 using ModsThanos.Utility.Enumerations;
 
 namespace ModsThanos {

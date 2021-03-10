@@ -2,7 +2,6 @@
 using System.IO;
 using System.Reflection;
 using Reactor.Extensions;
-using Reactor.Unstrip;
 using UnityEngine;
 
 namespace ModsThanos {
@@ -29,19 +28,6 @@ namespace ModsThanos {
             PowerUsed = assetBundle.LoadAsset<AudioClip>("PowerUsed").DontDestroy();
             SpawnPortal = assetBundle.LoadAsset<AudioClip>("SpawnPortal").DontDestroy();
             PlayerRevive = assetBundle.LoadAsset<AudioClip>("PlayerRevive").DontDestroy();
-
-            allHats.Add(assetBundle.LoadAsset<Sprite>("PlayerRevive").DontDestroy(), "PlayerRevive");
-            allHats.Add(assetBundle.LoadAsset<Sprite>("PlayerRevive").DontDestroy(), "PlayerRevive");
-            allHats.Add(assetBundle.LoadAsset<Sprite>("PlayerRevive").DontDestroy(), "PlayerRevive");
-            allHats.Add(assetBundle.LoadAsset<Sprite>("PlayerRevive").DontDestroy(), "PlayerRevive");
-            allHats.Add(assetBundle.LoadAsset<Sprite>("PlayerRevive").DontDestroy(), "PlayerRevive");
-            allHats.Add(assetBundle.LoadAsset<Sprite>("PlayerRevive").DontDestroy(), "PlayerRevive");
-            allHats.Add(assetBundle.LoadAsset<Sprite>("PlayerRevive").DontDestroy(), "PlayerRevive");
-            allHats.Add(assetBundle.LoadAsset<Sprite>("PlayerRevive").DontDestroy(), "PlayerRevive");
-            allHats.Add(assetBundle.LoadAsset<Sprite>("PlayerRevive").DontDestroy(), "PlayerRevive");
-            allHats.Add(assetBundle.LoadAsset<Sprite>("PlayerRevive").DontDestroy(), "PlayerRevive");
-
-            assetBundle.Dispose();
         }
     }
 }
