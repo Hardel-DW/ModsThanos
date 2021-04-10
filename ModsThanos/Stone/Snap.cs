@@ -2,12 +2,12 @@
 using UnityEngine;
 using ModsThanos.Utility.Enumerations;
 
-namespace ModsThanos {
+namespace ModsThanos.Stone {
 
     [HarmonyPatch(typeof(HudManager), nameof(HudManager.Start))]
     public static class Snap {
         public static void Postfix(HudManager __instance) {
-            GlobalVariable.buttonSnap = new CooldownButton
+            new CooldownButton
                 (() => OnClick(),
                 15f,
                 "ModsThanos.Resources.snap.png",
@@ -33,7 +33,7 @@ namespace ModsThanos {
             if (!GlobalVariable.UsableButton || CustomGameOptions.DisableSnap.GetValue()) {
                 button.SetCanUse(false);
             } else {
-                if (GlobalVariable.hasMindStone && GlobalVariable.hasSpaceStone && GlobalVariable.hasPowerStone && GlobalVariable.hasTimeStone && GlobalVariable.hasSoulStone && GlobalVariable.hasRealityStone)
+                if (StoneManager)
                     button.SetCanUse(true);
                 else
                     button.SetCanUse(false);        

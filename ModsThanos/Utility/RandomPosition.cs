@@ -1,17 +1,13 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using ModsThanos.Utility.Enumerations;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using ModsThanos.Utility.Enumerations;
+using UnityEngine;
 
-namespace ModsThanos.Map {
-    public class StonePlacement {
-        internal static Vector2 GetRandomLocation(string composent) {
-            byte MapID = (byte) ShipStatus.Instance.Type;
-
-            Dictionary<MapType, Vector2[]> mapLocations = new Dictionary<MapType, Vector2[]>();
-            Vector2 currentPositon;
-
-            mapLocations.Add(MapType.Skeld, new Vector2[] {
+namespace ModsThanos.Utility {
+    class RandomPosition {
+        public static Dictionary<MapType, Vector2[]> MapLocations = new Dictionary<MapType, Vector2[]>() {
+            { MapType.Skeld, new Vector2[] {
                 new Vector2(-12.594f, -4.179f),
                 new Vector2(-22.746f, -7.206f),
                 new Vector2(-19.269f, -9.544f),
@@ -32,9 +28,9 @@ namespace ModsThanos.Map {
                 new Vector2(-14.163f, -6.832f),
                 new Vector2(-18.551f, 2.625f),
                 new Vector2(-7.556f, -2.124f)
-            });
+            }},
 
-            mapLocations.Add(MapType.Polus, new Vector2[] {
+            { MapType.Polus, new Vector2[] {
                 new Vector2(4.458f, -3.387f),
                 new Vector2(3.801F, -7.584F),
                 new Vector2(7.193f, -13.089f),
@@ -58,9 +54,9 @@ namespace ModsThanos.Map {
                 new Vector2(34.852f, -5.208f),
                 new Vector2(40.516f, -8.102f),
                 new Vector2(36.291f, -22.012f)
-            });
+            }},
 
-            mapLocations.Add(MapType.MiraHQ, new Vector2[] {
+            { MapType.MiraHQ, new Vector2[] {
                 new Vector2(18.266f, -3.223f),
                 new Vector2(28.257f, -2.250f),
                 new Vector2(18.293f, 5.045f),
@@ -79,51 +75,38 @@ namespace ModsThanos.Map {
                 new Vector2(-5.780f, -2.037f),
                 new Vector2(16.752f, -1.455f),
                 new Vector2(10.161f, 5.162f)
-            });
+            }}
+        };
 
+        public static Vector2 GetRandomPosition() {
+            var random = new System.Random();
+            Vector2[] vectors = MapLocations[(MapType) ShipStatus.Instance.Type];
+            return vectors[random.Next(vectors.Count())];
+        }
+
+        public static Vector2 GetRandomPositionUnique(List<Vector2> WhiteListPosition, float separation) {
             bool RerollPosition;
-            List<Vector2> vectors = mapLocations[(MapType) MapID].ToList();
+            List<Vector2> vectors = MapLocations[(MapType) ShipStatus.Instance.Type].ToList();
+            Vector2 CurrentPosition;
+
             do {
-                RerollPosition = false;
                 var random = new System.Random();
-                currentPositon = vectors[random.Next(vectors.Count())];
+                RerollPosition = false;
+                CurrentPosition = vectors[random.Next(vectors.Count())];
 
-                if (GlobalVariable.stonePositon == null)
-                    break;
-
-                foreach (KeyValuePair<string, Vector2> element in GlobalVariable.stonePositon) {
-                    float positionBeetween = Vector2.Distance(element.Value, currentPositon);
-                    if (positionBeetween == 1f) {
+                foreach (var element in WhiteListPosition) {
+                    float positionBeetween = Vector2.Distance(element, CurrentPosition);
+                    if (positionBeetween < separation) {
                         RerollPosition = true;
-                        vectors.Remove(currentPositon);
+                        vectors.Remove(CurrentPosition);
                     }
                 }
-            } while (RerollPosition);
+            } while (RerollPosition && vectors.Count > 0);
 
-            if (!GlobalVariable.stonePositon.ContainsKey(composent))
-                GlobalVariable.stonePositon.Add(composent, currentPositon);
+            if (vectors.Count == 0)
+                throw new Exception("Hardel API => In class RandomPosition, GetRandomPositionUnique Function : No position was found in list");
 
-            return currentPositon;
-        }
-
-        internal static Dictionary<string, Vector2> SetAllStonePositions() {
-            foreach (var stone in GlobalVariable.stonesNames) {
-                Vector2 position = GetRandomLocation(stone);
-
-                if (!GlobalVariable.stonePositon.ContainsKey(stone))
-                    GlobalVariable.stonePositon.Add(stone, position);
-            }
-
-            return GlobalVariable.stonePositon;
-        }
-
-        internal static void PlaceAllStone() {
-            Stone.Map.Mind.Place(GlobalVariable.stonePositon["Mind"]);
-            Stone.Map.Power.Place(GlobalVariable.stonePositon["Power"]);
-            Stone.Map.Soul.Place(GlobalVariable.stonePositon["Soul"]);
-            Stone.Map.Time.Place(GlobalVariable.stonePositon["Time"]);
-            Stone.Map.Space.Place(GlobalVariable.stonePositon["Space"]);
-            Stone.Map.Reality.Place(GlobalVariable.stonePositon["Reality"]);
+            return CurrentPosition;
         }
     }
 }
